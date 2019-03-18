@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/rl_moreProduct"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp">
+
+    <com.sudaizhijia.ydjdq.wiget.RoundedImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/shape_homelist_icon"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_sfzd" />
+
+
+
+    <TextView
+        android:id="@+id/tv_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/iv_icon"
+        android:text="- - - -"
+        android:textColor="@color/operation_tvcolor"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_product_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_product_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@id/iv_icon"
+        android:text="- - - - - - -"
+        android:textColor="@color/color_des"
+        android:textSize="12sp" />
+    <ImageView
+        android:id="@+id/iv_go"
+        android:layout_width="7dp"
+        android:layout_height="12dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/ic_go" />
+
+    <TextView
+        android:id="@+id/tv_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/iv_go"
+        android:text="最高****元"
+        android:textColor="@color/red"
+        android:textSize="18sp" />
+</RelativeLayout>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    android:gravity="center_horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="290dp"
+        android:layout_height="385dp"
+        android:layout_centerVertical="true"
+        >
+
+        <ImageView
+            android:background="@mipmap/beijing"
+            android:layout_width="290dp"
+            android:layout_marginTop="15dp"
+            android:layout_height="355dp" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="89dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="150dp">
+
+            <TextView
+                android:id="@+id/txt_recommend_advertisement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text="您目前申请了***，预计"
+                android:textColor="#FEFEFE"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txt_recommend_advertisement2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txt_recommend_advertisement"
+                android:gravity="center_horizontal"
+                android:text="下款率为10%，经数据分析显"
+                android:textColor="#FEFEFE"
+                android:textSize="13sp"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/txt_recommend_advertisement3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txt_recommend_advertisement2"
+                android:gravity="center_horizontal"
+                android:text="示，继续申请下列产品，下款"
+                android:textColor="#FEFEFE"
+                android:textSize="13sp"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/txt_recommend_advertisement4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_recommend_advertisement3"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text="下款率可达80%！"
+                android:textColor="#FEFEFE"
+                android:textSize="13sp" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_recommend_product1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_recommend_log"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                         />
+
+                    <TextView
+                        android:id="@+id/txt_recommend_log"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_recommend_log"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textColor="#FEFEFE"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/txt_recommend_describe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txt_recommend_log"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="7dp"
+                        android:text=""
+                        android:textColor="#ffc600"
+                        android:textSize="8dp" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_recommend_product2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_recommend_log2"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                         />
+
+                    <TextView
+                        android:id="@+id/txt_recommend_log2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_recommend_log2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textColor="#FEFEFE"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/txt_recommend_describe2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txt_recommend_log2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="7dp"
+                        android:text=""
+                        android:textColor="#ffc600"
+                        android:textSize="8dp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

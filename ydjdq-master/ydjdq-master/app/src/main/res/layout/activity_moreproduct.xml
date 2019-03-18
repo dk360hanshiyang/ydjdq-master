@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/iv_statu"
+        android:background="@drawable/shape_titlebg"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" />
+    <com.sudaizhijia.ydjdq.wiget.StatusBarHeightView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        app:use_type="use_padding_top"
+        android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/rl_more_product_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/shape_titlebg">
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/ivback"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_back_white" />
+            </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="放水新口子"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_tishi"
+        android:textColor="@color/tv_tab_press"
+        android:text="每日更新，听说这些口子正在放水，超高下款率！"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:textSize="12sp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_below="@id/rl_more_product_titlebar"
+        android:background="@color/new_product_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_below="@+id/tv_tishi"
+        android:id="@+id/fl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
+   <!-- <cn.bingoogolapple.refreshlayout.BGARefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refreshlayout"
+        android:layout_below="@+id/tv_tishi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/page_bg">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyler_moreproduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_message"></android.support.v7.widget.RecyclerView>
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>-->
+    </com.sudaizhijia.ydjdq.wiget.StatusBarHeightView>
+</RelativeLayout>

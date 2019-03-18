@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainActivity">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"></FrameLayout>
+    <ImageView
+        android:background="@color/page_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_tab"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       >
+
+        <LinearLayout
+            android:id="@+id/ll_home"
+            style="@style/ll_bottom_style">
+
+            <ImageView
+                android:id="@+id/iv_home"
+                style="@style/iv_bottom_style"
+                android:src="@drawable/selector_home" />
+
+            <TextView
+                android:id="@+id/tv_home"
+                android:text="首页"
+                style="@style/tv_tab_sytle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_market"
+            style="@style/ll_bottom_style">
+
+            <ImageView
+                android:id="@+id/iv_market"
+                style="@style/iv_bottom_style"
+                android:src="@drawable/selector_market" />
+
+            <TextView
+                android:id="@+id/tv_market"
+                style="@style/tv_tab_sytle"
+                android:text="贷款大全" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bbs"
+            android:visibility="gone"
+            style="@style/ll_bottom_style">
+
+            <ImageView
+                android:id="@+id/iv_bbs"
+                style="@style/iv_bottom_style"
+                android:src="@drawable/selector_must"/>
+
+            <TextView
+                android:id="@+id/tv_bbs"
+                style="@style/tv_tab_sytle"
+                android:text="论坛" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_must"
+            style="@style/ll_bottom_style">
+
+            <ImageView
+                android:id="@+id/iv_must"
+                style="@style/iv_bottom_style"
+                android:src="@drawable/selector_must"/>
+
+            <TextView
+                android:id="@+id/tv_must"
+                style="@style/tv_tab_sytle"
+                android:text="一键必下" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_mine"
+            style="@style/ll_bottom_style">
+
+            <ImageView
+                android:id="@+id/iv_mine"
+                style="@style/iv_bottom_style"
+                android:src="@drawable/selector_mine" />
+
+            <TextView
+                android:id="@+id/tv_mine"
+                style="@style/tv_tab_sytle"
+                android:text="我的" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
+</RelativeLayout>

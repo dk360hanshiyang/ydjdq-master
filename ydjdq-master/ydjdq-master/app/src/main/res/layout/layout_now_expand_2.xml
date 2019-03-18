@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rl_item_newpdu_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="10:00场"
+            android:textColor="@color/operation_tvcolor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_new_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/tv_time_title"
+            android:text="上线4家"
+            android:textColor="@color/tv_tab_normal"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/im_new_number"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_new_number"
+            android:src="@mipmap/mhx"
+            android:layout_toRightOf="@+id/tv_new_number" />
+
+        <TextView
+            android:id="@+id/tv_time_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/im_new_number"
+            android:text="家"
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/im_new_number" />
+        <LinearLayout
+            android:id="@+id/ll_coutdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:gravity="center"
+                android:text="距离上线还剩"
+                android:textSize="12sp" />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/cv_countdownViewTest2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"
+                app:isHideTimeBackground="false"
+                app:isShowDay="false"
+                app:isShowHour="true"
+                app:isShowMillisecond="false"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:suffixGravity="center"
+                app:suffixTextColor="#000000"
+                app:suffixTextSize="12sp"
+                app:timeBgDivisionLineSize="1dp"
+                app:timeBgRadius="2dp"
+                app:timeBgSize="22dp"
+                app:timeTextColor="#FFFFFF"
+                app:timeTextSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_hour"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="8dp"
+                android:background="@mipmap/shij"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="00"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:padding="0dp"
+                android:text=" : "
+                android:textColor="#161616"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_minute"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@mipmap/shij"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="00"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:padding="0dp"
+                android:text=" : "
+                android:textColor="#161616"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_second"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@mipmap/shij"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="00"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_isexpand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_isexpand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="点击收起"
+                android:textColor="@color/tv_tab_press"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_top" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/layout_now_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl_item_newpdu_root"></android.support.v7.widget.RecyclerView>
+</RelativeLayout>

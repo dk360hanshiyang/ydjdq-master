@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#FF5A00</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#ffffff</color>
+    <color name="white1">#ffbf85</color>
+    <color name="red">#FF0000</color>
+    <color name="page_bg">#F5F5F5</color>
+    <color name="operation_tvcolor">#333333</color>
+    <color name="tv_color">#666666</color>
+    <color name="blue">#0084FF</color>
+    <color name="line_color1">#F1F1F1</color>
+    <color name="line_color">#F5F5F5</color>
+    <color name="line_color3">#d7d7d7</color>
+    <color name="tv_tab_normal">#999999</color>
+    <color name="tv_tab_press">#FF5A00</color>
+    <color name="tv_recently_des">#0084FF</color>
+    <color name="tv_refresh">#FF8A50</color>
+    <color name="tv_circle_des">#FFA114</color>
+    <color name="themecolor">#facf35</color>
+    <color name="gray">#cccccc</color>
+    <color name="line_gray">#EEEEEE</color>
+    <color name="color_des">#005AFF</color>
+    <color name="reap">#3f000000</color>
+    <color name="drop_down_selected">#7B1FA2</color>
+    <color name="drop_down_unselected">#111111</color>
+    <color name="drop_divided">#999999</color>
+    <color name="drop_divided1">#dddddd</color>
+    <color name="drop_1">#F5F5F5</color>
+
+    <color name="mask_color">#88888888</color>
+    <color name="check_bg">#f2f2f2</color>
+    <color name="un_press_color">#9C27B0</color>
+
+    <color name="new_product_bg">#FDF9BB</color>
+    <color name="tv_business_color">#3266FA</color>
+</resources>

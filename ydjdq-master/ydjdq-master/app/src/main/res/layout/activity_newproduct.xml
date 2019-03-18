@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/page_bg"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/iv_statu"
+        android:background="@drawable/shape_titlebg"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_header_bg"
+        android:paddingBottom="12dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@mipmap/ic_back" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_remain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_newpdu_total1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日共"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_newpdu_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - - - - "
+                android:textColor="@color/white"
+                android:textSize="17sp"
+               />
+
+            <TextView
+                android:id="@+id/tv_newpdu_total2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="名额"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_remain"
+            android:layout_marginTop="11dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="11dp"
+                android:text="仅剩"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_thousand_remain"
+                style="@style/tv_npdu_time_style"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/tv_hundred_remain"
+                style="@style/tv_npdu_time_style"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/tv_ten_remain"
+                style="@style/tv_npdu_time_style"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/tv_number_remain"
+                style="@style/tv_npdu_time_style"
+                android:text="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="个"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_yesterday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_renctly"
+                style="@style/tv_npdu_tab_style"
+                android:text="最近上线"
+                android:textColor="@color/color_newpdu_tv" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_now"
+                style="@style/tv_npdu_tab_style"
+                android:text="今日上线"
+                android:textColor="@color/color_newpdu_tv" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_tomorrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_after"
+                style="@style/tv_npdu_tab_style"
+                android:text="明日预告"
+                android:textColor="@color/color_newpdu_tv" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_npdu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+    <FrameLayout
+        android:id="@+id/rl_npdu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+</LinearLayout>

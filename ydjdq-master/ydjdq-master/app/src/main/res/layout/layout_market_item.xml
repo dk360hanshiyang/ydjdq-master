@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_adapter_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:id="@+id/rl_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.sudaizhijia.ydjdq.wiget.RoundedImageView
+            android:id="@+id/iv_market_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shape_homelist_icon"
+            android:src="@mipmap/ic_hhsq" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/iv_market_icon">
+
+            <TextView
+
+                android:id="@+id/tv_market_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一定借到錢"
+                android:textColor="@color/operation_tvcolor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_market_maxmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_market_title"
+                android:layout_marginTop="4dp"
+                android:text="最高3400元"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_icon"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_market_des1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="极速到账"
+            android:textColor="@color/tv_tab_normal"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_market_des2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 闪电借款"
+            android:textColor="@color/tv_tab_normal"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_go_new"
+        android:visibility="gone" />
+
+</RelativeLayout>
