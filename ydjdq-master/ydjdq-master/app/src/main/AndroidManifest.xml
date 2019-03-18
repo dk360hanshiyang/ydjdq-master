@@ -39,7 +39,7 @@
         <!--<meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>-->
         <activity
             android:name=".ui.main.MainActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTask"></activity>
         <!--
             <activity
             android:name=".ui.newproduct.NewProductActivity"
@@ -48,7 +48,9 @@
 
         <activity android:name=".ui.newproduct.NewProductActivity" />
         <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".ui.productdetail.ProductDetailActivity" ></activity>
+        <activity
+            android:name=".ui.productdetail.ProductDetailActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.business.BusinessActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.person.PersonActivity" />

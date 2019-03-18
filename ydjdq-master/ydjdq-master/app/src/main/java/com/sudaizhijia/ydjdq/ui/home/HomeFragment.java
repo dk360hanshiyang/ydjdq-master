@@ -62,6 +62,7 @@ import com.sudaizhijia.ydjdq.bean.TimeBean;
 import com.sudaizhijia.ydjdq.bean.UpDateBean;
 import com.sudaizhijia.ydjdq.global.CusApplication;
 import com.sudaizhijia.ydjdq.global.CusConstants;
+import com.sudaizhijia.ydjdq.global.UpdateManager;
 import com.sudaizhijia.ydjdq.mvp.MVPBaseFragment;
 import com.sudaizhijia.ydjdq.ui.login.LoginActivity;
 import com.sudaizhijia.ydjdq.ui.main.MainActivity;
@@ -294,13 +295,13 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         rlModulenameRefresh = recyclerView.findViewById(R.id.rl_modulename_refresh);
         initRefreshLayout();
         initRecycler();
-        initllFloatingWindow(recyclerView);
+        if(sign){
+            initllFloatingWindow(recyclerView);
+        }
+
         titleBar.setOnClickListener(this);
     }
 
-    private void initFloating() {
-
-    }
 
     ViewGroup container;
 
@@ -405,6 +406,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             }
         });
         adDialog.show();
+
     }
 
     /**
@@ -539,7 +541,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                     if (homeBean.getObject().getOverlays() != null && homeBean.getObject().getOverlays().size() > 0) {
                         showADDialog(homeBean.getObject().getOverlays());
                     }
-
+                    //获取apk更新
+                    UpdateManager  updateManager = new UpdateManager(getActivity());
+                    updateManager.fetchUpdate(true);
                     CusApplication.Home_isFirst = false;
                 }
             }
@@ -578,6 +582,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     }
 
+    private boolean sign = true;
     @Override
     public void setAllData(HomeBean homeBean, boolean isFresh) {
 
@@ -615,9 +620,16 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             setOverLays(overlays);
             List<HomeBean.ObjectBean.TopBean> top = object.getTop();
             setTop(top);
-            if (sign) {
-                setpopUp();
+            List<HomeBean.ObjectBean.PopupBean> popUp = object.getPopUp();
+            if(sign){
+                setpopUp(popUp);
+            }else{
+                llFloatingWindow.setVisibility(View.GONE);
+                imgCloseFloating.setVisibility(View.GONE);
+                imgFloating.setVisibility(View.GONE);
+
             }
+
             if (!isFresh) {
                 String countDown = object.getCountDown() + "";
                 initCoutDown(countDown);
@@ -628,21 +640,20 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     }
 
-    private boolean sign = true;
-
-    private void setpopUp() {
-        if (mHomeBean.getObject().getPopUp().size() > 0) {
-            imgCloseFloating.setVisibility(View.VISIBLE);
+    private void setpopUp( List<HomeBean.ObjectBean.PopupBean> popUp ) {
+        if (popUp.size() > 0) {
             llFloatingWindow.setVisibility(View.VISIBLE);
-//            Log.e("popSize", mHomeBean.getObject().getPopUp().size() + "url" + mHomeBean.getObject().getPopUp().get(index).getImgUrl());
-            if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
-                Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
+            imgCloseFloating.setVisibility(View.VISIBLE);
+            imgFloating.setVisibility(View.VISIBLE);
+            if (TextUtils.isEmpty(popUp.get(index).getImgUrl())) {
+                Glide.with(getContext()).load(popUp.get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
             } else {
-                Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
+                Glide.with(getContext()).load(popUp.get(index).getImgUrl()).into(imgFloating);
             }
         } else {
             llFloatingWindow.setVisibility(View.GONE);
             imgCloseFloating.setVisibility(View.GONE);
+            imgFloating.setVisibility(View.GONE);
         }
     }
 
@@ -1096,23 +1107,15 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             //浮窗
             case R.id.ll_floating_window:
                 if (isLogin()) {
-//                    if (index == mHomeBean.getObject().getPopUp().size() - 1) {
                     intentProduct();
-//                    } else {
-//                        intentProduct();
-//
-//                    }
-
                     Log.e("index", index + "()");
-
                 }
                 break;
             case R.id.iv_close_floating_window:
                 imgCloseFloating.setVisibility(View.GONE);
                 llFloatingWindow.setVisibility(View.GONE);
-                sign = false;
-
-
+                imgFloating.setVisibility(View.GONE);
+                sign =false;
                 break;
         }
     }

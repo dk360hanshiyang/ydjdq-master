@@ -95,9 +95,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         StatusBarUtil.setRootViewFitsSystemWindows(this, false);
 
 
-        //获取apk更新
-        updateManager = new UpdateManager(this);
-        updateManager.fetchUpdate(true);
     }
 
     /* */
@@ -153,6 +150,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
         mHideFragment = new FragmentUtil(MainActivity.this);
         mHideFragment.dataFragment(homeFragment);
+
+
     }
 
 

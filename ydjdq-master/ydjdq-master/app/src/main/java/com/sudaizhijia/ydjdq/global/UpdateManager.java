@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ import com.sudaizhijia.ydjdq.ui.main.MainActivity;
 import com.sudaizhijia.ydjdq.utils.AppInfoUtil;
 import com.sudaizhijia.ydjdq.utils.StringUtils;
 import com.sudaizhijia.ydjdq.wiget.MyDialog;
+import com.sudaizhijia.ydjdq.wiget.VersionDialog;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,7 +50,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Created by wangqiang on 2017/7/3.
  */
 
-public class UpdateManager implements EasyPermissions.PermissionCallbacks{
+public class UpdateManager implements EasyPermissions.PermissionCallbacks {
     private Activity context;
     private ProgressBar progressBar;
     private TextView tv_progress;
@@ -62,6 +65,7 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks{
 //        initPermission();
         EventBus.getDefault().register(this);
     }
+
     private static String[] PERMISSIONS = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -97,16 +101,19 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks{
                             int versionCode = AppInfoUtil.getVersionCode(CusApplication.mContext);
                             int normalUpdateNo = response.getObject().getNormalUpdateNo();
                             int forceUpdateNo = response.getObject().getForcedUpdateNo();
+                            normalUpdateNo = 20;
                             if (versionCode < forceUpdateNo) {
                                 CusApplication.isUpdate = true;
                                 //强制更新
-                                showUpdateDialog(response.getObject(), true);
+//                                showUpdateDialog(response.getObject(), true);
+                                showUpdateDialog1(response.getObject(), true);
                             } else if (versionCode < normalUpdateNo) {
                                 CusApplication.isUpdate = true;
                                 //普通更新
-                                showUpdateDialog(response.getObject(), false);
-                            }else if(versionCode>=normalUpdateNo){
-                                if(!first) {
+//                                showUpdateDialog(response.getObject(), false);
+                                showUpdateDialog1(response.getObject(), false);
+                            } else if (versionCode >= normalUpdateNo) {
+                                if (!first) {
                                     Toast.makeText(context, "已经是最新版本", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -120,6 +127,43 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks{
                     }
                 });
 
+    }
+
+    private void showUpdateDialog1(UpDateBean.ObjectBean object, boolean isForceUpdate) {
+        View view = View.inflate(context, R.layout.dialog_update_version, null);
+        TextView txtUpdateVetsion = view.findViewById(R.id.txt_update_vetsion);
+        TextView txtUpdateVetsionCode = view.findViewById(R.id.txt_update_versioncode);
+        txtUpdateVetsionCode.setText("V" + AppInfoUtil.getVersionName(context));
+        TextView txtUpdataDetail = view.findViewById(R.id.txt_updata_detail);
+        Button btnUpdateVersion = view.findViewById(R.id.btn_update_version);
+        ImageView imgCloseUpdateVersion = view.findViewById(R.id.img_close_update_version);
+        imgCloseUpdateVersion.setVisibility(isForceUpdate ? View.GONE : View.VISIBLE);
+        VersionDialog versionDialog = new VersionDialog(context, ViewGroup.LayoutParams.MATCH_PARENT - 1,
+                ViewGroup.LayoutParams.MATCH_PARENT , view, R.style.dialog);
+        versionDialog.setCanceledOnTouchOutside(false);
+        versionDialog.setCancelable(!isForceUpdate);
+        txtUpdataDetail.setText(Html.fromHtml(object.getUpdateDetail()));
+        imgCloseUpdateVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                versionDialog.dismiss();
+            }
+        });
+        btnUpdateVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                versionDialog.dismiss();
+                download(object.getDownloadUrl());
+            }
+        });
+        btnUpdateVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                versionDialog.dismiss();
+                download(object.getDownloadUrl());
+            }
+        });
+        versionDialog.show();
     }
 
 
@@ -180,7 +224,6 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks{
      * 下载进度对话框
      */
     public void showProgressDialog() {
-
 
 
         View view = View.inflate(context, R.layout.dialog_progress, null);

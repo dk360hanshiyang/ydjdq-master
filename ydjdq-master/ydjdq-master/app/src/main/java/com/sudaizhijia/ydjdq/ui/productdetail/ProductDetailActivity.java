@@ -282,7 +282,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
 
     @Override
     protected void init() {
-        mHandler.sendEmptyMessageDelayed(0, 1000);
+//        mHandler.sendEmptyMessageDelayed(0, 1000);
 
 //        KeyUtils.autoScrollView(main, webview);
 //        errorCode.add();
@@ -715,48 +715,43 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         }
     }
 
-    private int timer = 0;
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 0) {
-                timer++;
-                mHandler.sendEmptyMessageDelayed(0, 1000);
-            }
-        }
-    };
+    //    private int timer = 0;
+//    private Handler mHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            if (msg.what == 0) {
+//                timer++;
+//                mHandler.sendEmptyMessageDelayed(0, 1000);
+//                Log.e("text11111111", timer + "");
+//            }
+//        }
+//    };
     boolean sgin = true;
 
     private void initWebView() {
-        Log.e("timer", timer + " ");
+//        Log.e("timer", timer + " ");
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                Log.e("text11111111", "mHomeUrl ====: " + mHomeUrl + "===url=====" + url + "===linekdurl=====" + linkedUrlTwo);
+                Log.e("text", "mHomeUrl ====: " + mHomeUrl + "===url=====" + url + "===linekdurl=====" + linkedUrlTwo);
                 if (!TextUtils.isEmpty(mHomeUrl)) {
                     if (TextUtils.isEmpty(linkedUrlTwo)) {
                         if (!TextUtils.equals(mHomeUrl, url)) {
-//                        if (!linkedUrlTwo.equals(url)) {
                             if (sgin) {
                                 //注册
                                 calcuteRegister();
                                 sgin = false;
 
-                            } else {
-                                mHandler.removeMessages(0);
                             }
                         }
                     } else {
                         if (!TextUtils.equals(mHomeUrl, url) || linkedUrlTwo.equals(url)) {
-//                        if (!linkedUrlTwo.equals(url)) {
                             if (sgin) {
                                 //注册
                                 calcuteRegister();
                                 sgin = false;
 
-                            } else {
-                                mHandler.removeMessages(0);
                             }
 
                         }
@@ -768,6 +763,36 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
                     webview.loadUrl(CusApplication.MockUrl);
                 }
                 return false;
+            }
+
+            @Override
+            public void onLoadResource(WebView webView, String s) {
+//                Log.e("text1", "mHomeUrl ====: " + mHomeUrl + "===url=====" + url + "===linekdurl=====" + linkedUrlTwo);
+//                if (!TextUtils.isEmpty(mHomeUrl)) {
+//                    if (TextUtils.isEmpty(linkedUrlTwo)) {
+//                        if (!TextUtils.equals(mHomeUrl, s)) {
+//                            if (sgin) {
+//                                //注册
+//                                calcuteRegister();
+//                                sgin = false;
+//
+//                            }
+//                        }
+//                    } else {
+//                        if (!TextUtils.equals(mHomeUrl, s) || linkedUrlTwo.equals(s)) {
+//                            if (sgin) {
+//                                //注册
+//                                calcuteRegister();
+//                                sgin = false;
+//
+//                            }
+//
+//                        }
+//                    }
+
+//                }
+                super.onLoadResource(webView, s);
+
             }
 
             @Override
@@ -789,6 +814,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
                 //6.0以下执行
                 //网络未连接
                 showErrorPage();
+                Log.e("WebResourceError", errorCode + "" + description);
             }
 
             //处理网页加载失败时
@@ -852,7 +878,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
 //                super.onProgressChanged(webView, i);
                 if (i == 100) {
 
-
+//                    postUvData();
                     progressBar1.setVisibility(View.GONE);//加载完网页进度条消失
                     loadingView1.setVisibility(View.GONE);
                 } else {
@@ -978,6 +1004,49 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         CookieSyncManager.getInstance().sync();
     }
 
+    private void postUvData() {
+        CusApplication.random = AppInfoUtil.getNowTime();
+        int productShowId = 0;
+        String position = "";
+        int sortIndex = 0;
+        int id = 0;
+
+        if (type == CusConstants.MARKET_DATA) {
+            productShowId = marketBean.getProductId();
+            position = marketBean.getPosition().getKey();
+            sortIndex = marketBean.getSortIndex();
+            id = marketBean.getBorrowProduct().getId();
+        }
+        OkHttpUtils
+                .post()
+//                .tag(getTag())
+                .url(API.UV)
+                .addParams("productShowId", productShowId + "")
+                .addParams("position", position)
+                .addParams("sortIndex", sortIndex + "")
+                .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
+                .addParams("productId", id + "")
+                .addParams("actionSerialNumber", CusApplication.random)
+                .addParams("userId", CusApplication.object.getUserId() + "")
+                .addParams("accessPort", "2")
+                .build()
+                .execute(new HttpCallback() {
+                    @Override
+                    public void onSuccess(BaseBean response, int id) {
+
+                    }
+
+                    @Override
+                    public void onFail(Call call, Exception e, int id) {
+                    }
+
+                    @Override
+                    public void onResponse(Object response, int id) {
+
+                    }
+                });
+    }
+
     private void calcuteRegister() {
         new Thread() {
             @Override
@@ -1075,7 +1144,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
 
     @Override
     public int getLayoutId() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return R.layout.activity_product_detail;
     }
 
