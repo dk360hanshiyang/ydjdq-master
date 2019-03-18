@@ -158,8 +158,13 @@ public class SharePopwindow implements View.OnClickListener {
             if (msg.what == 0) {
                 lp = activity.getWindow().getAttributes();
                 lp.alpha = 1f;
-                activity.getWindow().setAttributes(lp);
-                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                try {
+                    activity.getWindow().setAttributes(lp);
+                    activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                }catch (Exception e){
+
+                }
+
             }
         }
     };

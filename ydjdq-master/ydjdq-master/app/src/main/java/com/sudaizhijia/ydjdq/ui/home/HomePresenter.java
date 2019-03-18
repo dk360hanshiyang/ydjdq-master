@@ -35,6 +35,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.Locale;
 
@@ -52,7 +54,6 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
 
     private boolean isRefresh;
     private String city;
-
 
 
     @Override
@@ -262,8 +263,14 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
 
                     @Override
                     public void onFail(Call call, Exception e, int id) {
-
-mView.error500();                    }
+                        if (e instanceof SocketTimeoutException) {//超时异常
+                            mView.stopRefresh();
+                        }
+                        if (e instanceof ConnectException) {//连接异常
+                            mView.stopRefresh();
+                        }
+                        mView.error500();
+                    }
                 });
     }
 
@@ -303,12 +310,12 @@ mView.error500();                    }
             position = homeBean.getObject().getPaymentReport().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getPaymentReport().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getPaymentReport().get(currentPosi).getBorrowProduct().getId();
-        }else if (type == CusConstants.POPUP) {
+        } else if (type == CusConstants.POPUP) {
             productShowId = homeBean.getObject().getPopUp().get(currentPosi).getProductId();
             position = homeBean.getObject().getPopUp().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getPopUp().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getPopUp().get(currentPosi).getPupUpBorrowProductBean().getId();
-        }else if(type ==CusConstants.ZHUANTI){
+        } else if (type == CusConstants.ZHUANTI) {
 
             productShowId = homeBean.getObject().getTop().get(currentPosi).getProductId();
             position = homeBean.getObject().getTop().get(currentPosi).getPosition().getKey();

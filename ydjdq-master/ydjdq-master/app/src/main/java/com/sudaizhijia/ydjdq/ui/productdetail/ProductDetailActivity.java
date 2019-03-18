@@ -212,6 +212,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
     private String description;
     private MineBean.ObjectBean.MyVoBean.MyShowListBean myShowListBean;
     private String logoUrl;
+    private int index;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
@@ -278,12 +279,14 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
           }
       }*/
 
+
     @Override
     protected void init() {
         mHandler.sendEmptyMessageDelayed(0, 1000);
+
 //        KeyUtils.autoScrollView(main, webview);
 //        errorCode.add();
-        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+//        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
 //        sharePopwindow = new SharePopwindow(this, webview);
         try {
             if (CusApplication.list != null && CusApplication.list.size() > 0) {
@@ -302,6 +305,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         EventBus.getDefault().register(this);
         type = getIntent().getIntExtra(CusConstants.START_TYPE, 0);
         if (type == CusConstants.HOMEINFO) {
+            index = getIntent().getIntExtra("index", 0);
             iv_statu.setVisibility(View.VISIBLE);
             homeBean = (HomeBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
             position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
@@ -538,22 +542,31 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
             downLoadName = borrowProduct4.getName();
             tv_product_title.setText(borrowProduct4.getName());
         } else if (type == CusConstants.MINE_SHOW) {
-            iv_statu.setVisibility(View.VISIBLE);
-            mineBean = (MineBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
-            myShowList = mineBean.getObject().getMyVo().getMyShowList();
+            try {
 
-            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
-            productId = myShowList.get(position).getProductId();
-            borrowProduct5 = myShowList.get(position).getBorrowProduct();
-            if (!TextUtils.isEmpty(borrowProduct5.getLinkedUrlTwo())) {
-                linkedUrlTwo = borrowProduct5.getLinkedUrlTwo();
+
+                iv_statu.setVisibility(View.VISIBLE);
+                mineBean = (MineBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
+                if (mineBean.getObject().getMyVo().getMyShowList() != null && mineBean.getObject().getMyVo().getMyShowList().size() > 0) {
+
+                    myShowList = mineBean.getObject().getMyVo().getMyShowList();
+
+                    position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
+                    productId = myShowList.get(position).getProductId();
+                    borrowProduct5 = myShowList.get(position).getBorrowProduct();
+                }
+                if (!TextUtils.isEmpty(borrowProduct5.getLinkedUrlTwo())) {
+                    linkedUrlTwo = borrowProduct5.getLinkedUrlTwo();
+                }
+                logoUrl = borrowProduct5.getLogoUrl();
+                description = borrowProduct5.getDescription();
+                Glide.with(getContext()).load(borrowProduct5.getLogoUrl()).into(iv_icon);
+                mHomeUrl = borrowProduct5.getLinkedUrl();
+                downLoadName = borrowProduct5.getName();
+                tv_product_title.setText(borrowProduct5.getName());
+            } catch (Exception e) {
+
             }
-            logoUrl = borrowProduct5.getLogoUrl();
-            description = borrowProduct5.getDescription();
-            Glide.with(getContext()).load(borrowProduct5.getLogoUrl()).into(iv_icon);
-            mHomeUrl = borrowProduct5.getLinkedUrl();
-            downLoadName = borrowProduct5.getName();
-            tv_product_title.setText(borrowProduct5.getName());
         } else if (type == CusConstants.MINE_BANNER) {
             iv_statu.setVisibility(View.VISIBLE);
             mineBean = (MineBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
@@ -720,37 +733,36 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Log.e("text11111111", "mHomeUrl ====: " + mHomeUrl + "===url=====" + url + "===linekdurl=====" + linkedUrlTwo);
-                if (!TextUtils.isEmpty(linkedUrlTwo)) {
-                    if (!TextUtils.equals(mHomeUrl, url)) {
+//                Log.e("text11111111", "mHomeUrl ====: " + mHomeUrl + "===url=====" + url + "===linekdurl=====" + linkedUrlTwo);
+                if (!TextUtils.isEmpty(mHomeUrl)) {
+                    if (TextUtils.isEmpty(linkedUrlTwo)) {
+                        if (!TextUtils.equals(mHomeUrl, url)) {
 //                        if (!linkedUrlTwo.equals(url)) {
-                        if (sgin) {
-                            //注册
-                            calcuteRegister();
-                            sgin = false;
+                            if (sgin) {
+                                //注册
+                                calcuteRegister();
+                                sgin = false;
 
-                        } else {
-                            mHandler.removeMessages(0);
+                            } else {
+                                mHandler.removeMessages(0);
+                            }
                         }
+                    } else {
+                        if (!TextUtils.equals(mHomeUrl, url) || linkedUrlTwo.equals(url)) {
+//                        if (!linkedUrlTwo.equals(url)) {
+                            if (sgin) {
+                                //注册
+                                calcuteRegister();
+                                sgin = false;
 
+                            } else {
+                                mHandler.removeMessages(0);
+                            }
+
+                        }
                     }
 
-                } else {
-                    if (!TextUtils.equals(mHomeUrl, url) || linkedUrlTwo.equals(url)) {
-//                        if (!linkedUrlTwo.equals(url)) {
-                        if (sgin) {
-                            //注册
-                            calcuteRegister();
-                            sgin = false;
-
-                        } else {
-                            mHandler.removeMessages(0);
-                        }
-
-                    }
                 }
-
-
                 if (CusApplication.isMock == 1) {
 //                        Log.e("Mock", "CusApplication.isMock" + CusApplication.isMock + "CusApplication.MockUrl" + CusApplication.MockUrl);
                     webview.loadUrl(CusApplication.MockUrl);

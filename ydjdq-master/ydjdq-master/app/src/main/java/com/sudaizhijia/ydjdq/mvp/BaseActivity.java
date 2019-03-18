@@ -13,6 +13,7 @@ import com.sudaizhijia.ydjdq.global.CusApplication;
 import com.sudaizhijia.ydjdq.global.CusConstants;
 import com.sudaizhijia.ydjdq.splash.SplashActivity;
 import com.sudaizhijia.ydjdq.ui.login.LoginActivity;
+import com.sudaizhijia.ydjdq.ui.productdetail.ProductDetailActivity;
 import com.sudaizhijia.ydjdq.utils.AppManager;
 import com.sudaizhijia.ydjdq.utils.SharedPreUtils;
 import com.sudaizhijia.ydjdq.utils.StatusBarUtil;
@@ -41,10 +42,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         AppManager.getInstance().addActivity(this);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(getLayoutId());
         bind = ButterKnife.bind(this);
-        if (this instanceof LoginActivity || this instanceof SplashActivity) {
+        if (this instanceof LoginActivity || this instanceof SplashActivity || this instanceof ProductDetailActivity) {
             //当FitsSystemWindows设置 true 时，会在屏幕最上方不会预留出状态栏高度的 padding
             StatusBarUtil.setRootViewFitsSystemWindows(this, false);
         } else {

@@ -237,85 +237,106 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
             case R.id.ll_mine_tab1:
                 //新用戶
+                try {
 
+                    if (AppInfoUtil.checkLogin(getContext())) {
+                        if (!TextUtils.isEmpty(mBean.getObject().getMyVo().getMyShowList().get(0).getShowType())) {
+                            if (mBean.getObject().getMyVo().getMyShowList().get(0).getShowType().equals(CusConstants.HUODONG_TYPE) || mBean.getObject().getMyVo().getMyShowList().get(0).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
+                                calculate(0, CusConstants.MINE_ZHUANTI);
+                                openDetail(CusConstants.MINE_ZHUANTI, mBean, 0);
+                            } else {
+                                if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
+                                    calculate(0, CusConstants.MINE_SHOW);
+                                    openDetail(CusConstants.MINE_SHOW, mBean, 0);
+                                }
 
-                if (AppInfoUtil.checkLogin(getContext())) {
-                    if (!TextUtils.isEmpty(mBean.getObject().getMyVo().getMyShowList().get(0).getShowType())) {
-                        if (mBean.getObject().getMyVo().getMyShowList().get(0).getShowType().equals(CusConstants.HUODONG_TYPE) || mBean.getObject().getMyVo().getMyShowList().get(0).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
-                            calculate(0, CusConstants.MINE_ZHUANTI);
-                            openDetail(CusConstants.MINE_ZHUANTI, mBean, 0);
+                            }
                         } else {
                             if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
-                                calculate(0, CusConstants.MINE_SHOW);
-                                openDetail(CusConstants.MINE_SHOW, mBean, 0);
+                                calculate(0, CusConstants.TOP);
+                                openDetail(CusConstants.TOP, mBean, 0);
                             }
+                        }
 
-                        }
-                    } else {
-                        if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
-                            calculate(0, CusConstants.TOP);
-                            openDetail(CusConstants.TOP, mBean, 0);
-                        }
                     }
+                } catch (Exception e) {
 
                 }
-
                 break;
             case R.id.ll_mine_tab2:
-                if (AppInfoUtil.checkLogin(getContext())) {
+                try {
+
                     if (AppInfoUtil.checkLogin(getContext())) {
-                        if (!TextUtils.isEmpty(mBean.getObject().getMyVo().getMyShowList().get(1).getShowType())) {
-                            if (mBean.getObject().getMyVo().getMyShowList().get(1).getShowType().equals(CusConstants.HUODONG_TYPE) || mBean.getObject().getMyVo().getMyShowList().get(1).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
-                                calculate(1, CusConstants.MINE_ZHUANTI);
-                                openDetail(CusConstants.MINE_ZHUANTI, mBean, 1);
+                        if (AppInfoUtil.checkLogin(getContext())) {
+                            if (!TextUtils.isEmpty(mBean.getObject().getMyVo().getMyShowList().get(1).getShowType())) {
+                                if (mBean.getObject().getMyVo().getMyShowList().get(1).getShowType().equals(CusConstants.HUODONG_TYPE) || mBean.getObject().getMyVo().getMyShowList().get(1).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
+                                    calculate(1, CusConstants.MINE_ZHUANTI);
+                                    openDetail(CusConstants.MINE_ZHUANTI, mBean, 1);
+                                } else {
+                                    if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
+                                        calculate(1, CusConstants.MINE_SHOW);
+                                        openDetail(CusConstants.MINE_SHOW, mBean, 1);
+                                    }
+
+                                }
                             } else {
                                 if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
-                                    calculate(1, CusConstants.MINE_SHOW);
-                                    openDetail(CusConstants.MINE_SHOW, mBean, 1);
+                                    calculate(1, CusConstants.TOP);
+                                    openDetail(CusConstants.TOP, mBean, 1);
                                 }
+                            }
 
-                            }
-                        } else {
-                            if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
-                                calculate(1, CusConstants.TOP);
-                                openDetail(CusConstants.TOP, mBean, 1);
-                            }
                         }
-
                     }
+
+                } catch (Exception e) {
+
                 }
-
-
                 break;
             case R.id.ll_mine_tab3:
-                if (AppInfoUtil.checkLogin(getContext())) {
+                try {
+
+
                     if (AppInfoUtil.checkLogin(getContext())) {
-                        if (!TextUtils.isEmpty(mBean.getObject().getMyVo().getMyShowList().get(2).getShowType())) {
-                            if (mBean.getObject().getMyVo().getMyShowList().get(2).getShowType().equals(CusConstants.HUODONG_TYPE) || mBean.getObject().getMyVo().getMyShowList().get(2).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
-                                calculate(2, CusConstants.MINE_ZHUANTI);
-                                openDetail(CusConstants.MINE_ZHUANTI, mBean, 2);
+                        if (AppInfoUtil.checkLogin(getContext())) {
+                            if (!TextUtils.isEmpty(mBean.getObject().getMyVo().getMyShowList().get(2).getShowType())) {
+                                if (mBean.getObject().getMyVo().getMyShowList().get(2).getShowType().equals(CusConstants.HUODONG_TYPE) || mBean.getObject().getMyVo().getMyShowList().get(2).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
+                                    calculate(2, CusConstants.MINE_ZHUANTI);
+                                    openDetail(CusConstants.MINE_ZHUANTI, mBean, 2);
+                                } else {
+                                    if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
+                                        calculate(2, CusConstants.MINE_SHOW);
+                                        openDetail(CusConstants.MINE_SHOW, mBean, 2);
+                                    }
+
+                                }
                             } else {
                                 if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
-                                    calculate(2, CusConstants.MINE_SHOW);
-                                    openDetail(CusConstants.MINE_SHOW, mBean, 2);
+                                    calculate(2, CusConstants.TOP);
+                                    openDetail(CusConstants.TOP, mBean, 2);
                                 }
+                            }
 
-                            }
-                        } else {
-                            if (mBean.getObject() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
-                                calculate(2, CusConstants.TOP);
-                                openDetail(CusConstants.TOP, mBean, 2);
-                            }
                         }
-
                     }
-                }
+                } catch (Exception e) {
 
+                }
                 break;
             case R.id.ll_mine_tab4:
                 if (AppInfoUtil.checkLogin(getContext())) {
-                    calculate(3, CusConstants.MINE_SHOW);
-                    openDetail(CusConstants.MINE_SHOW, mBean, 3);
+                    if (mBean != null) {
+                        if (mBean.getObject() != null) {
+                            if (mBean.getObject().getMyVo().getMyShowList() != null && mBean.getObject().getMyVo().getMyShowList().size() > 0) {
+                                calculate(3, CusConstants.MINE_SHOW);
+                                openDetail(CusConstants.MINE_SHOW, mBean, 3);
+                            } else {
+                                Toast.makeText(getContext(), "暂无该产品", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                    }
+
                 }
                 break;
 
@@ -407,7 +428,17 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             @Override
             public void run() {
                 super.run();
-                mPresenter.postUvData(mBean, position, type);
+                try {
+                    if (mBean != null) {
+                        if (mBean.getObject() != null) {
+                            mPresenter.postUvData(mBean, position, type);
+                        }
+                    }
+
+                } catch (Exception e) {
+
+                }
+
             }
         }.start();
     }
@@ -418,6 +449,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         intent.putExtra(CusConstants.PRODUCT_INFO, data);
         intent.putExtra(CusConstants.PRODUCT_POSITION, position);
         startActivity(intent);
+
     }
 
 

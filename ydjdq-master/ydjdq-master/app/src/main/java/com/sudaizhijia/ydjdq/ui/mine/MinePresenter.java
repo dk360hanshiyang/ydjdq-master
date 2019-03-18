@@ -90,21 +90,27 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
         int sortIndex = 0;
         int id = 0;
         MineBean mineBean = (MineBean) bean;
-        if (type == CusConstants.MINE_SHOW) {
-            productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getProductId();
-            position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
-            sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
-            id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();
-        } else if (type == CusConstants.MINE_BANNER) {
+        try {
+
+
+            if (type == CusConstants.MINE_SHOW) {
+                productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getProductId();
+                position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
+                sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
+                id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();
+            } else if (type == CusConstants.MINE_BANNER) {
 //            productShowId = mineBean.getObject().getMyVo().getAppBannerList().getProductId();
 //            position = mineBean.getObject().getMyVo().getAppBannerList().get(position1).getPosition().getKey();
 //            sortIndex = mineBean.getObject().getMyVo().getAppBannerList().get(position1).getSortIndex();
 //            id = mineBean.getObject().getMyVo().getAppBannerList().get(position1).getBorrowProduct().getId();
-        } else if (type == CusConstants.MINE_ZHUANTI) {
-            productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getProductId();
-            position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
-            sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
-            id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();
+            } else if (type == CusConstants.MINE_ZHUANTI) {
+                productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getProductId();
+                position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
+                sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
+                id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();
+            }
+        } catch (Exception e) {
+
         }
         OkHttpUtils
                 .post()

@@ -13,6 +13,10 @@ import com.sudaizhijia.ydjdq.utils.AppInfoUtil;
 import com.sudaizhijia.ydjdq.utils.SharedPreUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.nio.channels.ReadPendingException;
+
 import okhttp3.Call;
 
 /**
@@ -22,7 +26,7 @@ import okhttp3.Call;
 public class MarketPresenter extends BasePresenterImpl<MarketContract.View> implements MarketContract.Presenter {
 
     @Override
-    public void getMarketListInfo(boolean isRefrsh, String start, String size, int isLoadMore,String sort,String maxMount,String minMount) {
+    public void getMarketListInfo(boolean isRefrsh, String start, String size, int isLoadMore, String sort, String maxMount, String minMount) {
         OkHttpUtils.post().tag(getTag()).url(API.MAREKT_DATA)
                 .addParams("pageStart", start)
                 .addParams("pageSize", size)
@@ -39,8 +43,8 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
 //                            return;
 //                        }
                         String cache = getCache();
-                        SharedPreUtils.putString(CusApplication.mContext, CusConstants.MARKET_DATA_INFO,cache);
-                        if(mView == null) {
+                        SharedPreUtils.putString(CusApplication.mContext, CusConstants.MARKET_DATA_INFO, cache);
+                        if (mView == null) {
                             return;
                         }
                         if (response.getObject().isHasNext()) {
@@ -70,13 +74,18 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
 
                     @Override
                     public void onFail(Call call, Exception e, int id) {
-                        Toast.makeText(mView.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         if (isRefrsh) {
                             //TODO 刷新时网络错误
                             mView.stopRefresh();
                         } else if (isLoadMore == 10) {
                             //TODO 加载时网络错误
                             mView.stopLoadMore();
+                        }
+                        if (e instanceof SocketTimeoutException) {//超时异常
+                            mView.stopRefresh();
+                        }
+                        if (e instanceof ConnectException) {//连接异常
+                            mView.stopRefresh();
                         }
                     }
                 });

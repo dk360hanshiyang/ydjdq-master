@@ -8,14 +8,21 @@
     <ImageView
         android:id="@+id/iv_statu"
         android:layout_width="match_parent"
-
         android:layout_height="?android:attr/actionBarSize"
         android:background="@drawable/shape_titlebg" />
 
+    <com.sudaizhijia.ydjdq.wiget.StatusBarHeightView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        app:use_type="use_padding_top"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true">
+    </com.sudaizhijia.ydjdq.wiget.StatusBarHeightView>
     <RelativeLayout
-        android:layout_marginTop="25dp"
         android:id="@+id/rl_detail_root"
         android:layout_width="match_parent"
+        android:layout_marginTop="25dp"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_titlebg">
 

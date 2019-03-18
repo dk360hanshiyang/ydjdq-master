@@ -301,11 +301,13 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     private void initFloating() {
 
     }
+
     ViewGroup container;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.container =container;
+        this.container = container;
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
@@ -363,7 +365,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         ViewPager vp_dialog = view.findViewById(R.id.vp_dialog);
         ImageView close = view.findViewById(R.id.iv_close);
 //        CodeDialogView adDialog = new CodeDialogView(getActivity(), 0, 0, view, R.style.DialogTheme);
-        adDialog = new MyDialog(getActivity(), ViewGroup.LayoutParams.MATCH_PARENT-1, ViewGroup.LayoutParams.MATCH_PARENT, view, R.style.DialogTheme);
+        adDialog = new MyDialog(getActivity(), ViewGroup.LayoutParams.MATCH_PARENT - 1, ViewGroup.LayoutParams.MATCH_PARENT, view, R.style.DialogTheme);
         adDialog.setCanceledOnTouchOutside(false);
         adDialog.setCancelable(true);
         views = new ArrayList<>();
@@ -481,23 +483,31 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     }
 
     private void initPopUp() {
+        Log.e("index", index + "()");
         if (mHomeBean != null) {
             if (mHomeBean.getObject() != null) {
-                if (mHomeBean.getObject().getPopUp() != null && mHomeBean.getObject().getPopUp().size() > 0) {
+                if (mHomeBean.getObject().getPopUp() != null && mHomeBean.getObject().getPopUp().size() > 1) {
                     if (index == mHomeBean.getObject().getPopUp().size() - 1) {
-                        if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
-                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
-                        } else {
-                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
-                        }
                         index = 0;
-                    } else {
                         if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
                             Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
                         } else {
                             Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
                         }
 
+                    } else {
+                        index++;
+                        if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
+                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
+                        } else {
+                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
+                        }
+                    }
+                } else {
+                    if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(0).getImgUrl())) {
+                        Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(0).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
+                    } else {
+                        Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(0).getImgUrl()).into(imgFloating);
                     }
                 }
             }
@@ -526,7 +536,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             if (homeBean != null) {
                 //第一次进入APP，展示弹窗
                 if (CusApplication.Home_isFirst) {
-                    showADDialog(homeBean.getObject().getOverlays());
+                    if (homeBean.getObject().getOverlays() != null && homeBean.getObject().getOverlays().size() > 0) {
+                        showADDialog(homeBean.getObject().getOverlays());
+                    }
+
                     CusApplication.Home_isFirst = false;
                 }
             }
@@ -602,7 +615,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             setOverLays(overlays);
             List<HomeBean.ObjectBean.TopBean> top = object.getTop();
             setTop(top);
-            setpopUp();
+            if (sign) {
+                setpopUp();
+            }
             if (!isFresh) {
                 String countDown = object.getCountDown() + "";
                 initCoutDown(countDown);
@@ -612,6 +627,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         }
 
     }
+
+    private boolean sign = true;
 
     private void setpopUp() {
         if (mHomeBean.getObject().getPopUp().size() > 0) {
@@ -732,11 +749,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             tv_operation_four.setText(top.get(3).getTitle());
             Glide.with(getContext()).load(top.get(0).getImgUrl()).into(iv_operation_one);
             Glide.with(getContext()).load(top.get(1).getImgUrl()).into(iv_operation_two);
-            if (mHomeBean.getObject().getTop().get(0).getImgUrl() != null) {
-                Glide.with(getContext()).load(mHomeBean.getObject().getTop().get(0).getImgUrl()).into(iv_operation_three);
-            } else {
-                Glide.with(getContext()).load(top.get(2).getImgUrl()).into(iv_operation_three);
-            }
+//            if (mHomeBean.getObject().getTop().get(0).getImgUrl() != null) {
+//                Glide.with(getContext()).load(mHomeBean.getObject().getTop().get(0).getImgUrl()).into(iv_operation_three);
+//            } else {
+            Glide.with(getContext()).load(top.get(2).getImgUrl()).into(iv_operation_three);
+//            }
 
             Glide.with(getContext()).load(top.get(3).getImgUrl()).into(iv_operation_four);
         } catch (Exception e) {
@@ -782,6 +799,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                     .apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_change_app_two);
             Glide.with(getContext()).load(middle.get(2).getBorrowProduct().getLogoUrl()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_change_app_three);
             Glide.with(getContext()).load(middle.get(3).getBorrowProduct().getLogoUrl()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_change_app_four);
+            Log.e("logourl", middle.get(0).getBorrowProduct().getLogoUrl() + "  " + middle.get(2).getBorrowProduct().getLogoUrl());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -882,12 +900,12 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
      */
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPresenter.getIndexInfo(true);
-            }
-        }, 1000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+        mPresenter.getIndexInfo(true);
+//            }
+//        }, 1000);
 
     }
 
@@ -1078,15 +1096,12 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             //浮窗
             case R.id.ll_floating_window:
                 if (isLogin()) {
-                    if (index == mHomeBean.getObject().getPopUp().size()) {
-
-                        intentProduct();
-
-                    } else {
-                        intentProduct();
-                        index++;
-
-                    }
+//                    if (index == mHomeBean.getObject().getPopUp().size() - 1) {
+                    intentProduct();
+//                    } else {
+//                        intentProduct();
+//
+//                    }
 
                     Log.e("index", index + "()");
 
@@ -1095,6 +1110,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             case R.id.iv_close_floating_window:
                 imgCloseFloating.setVisibility(View.GONE);
                 llFloatingWindow.setVisibility(View.GONE);
+                sign = false;
 
 
                 break;
@@ -1200,8 +1216,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             iv_one.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    calculate(0, CusConstants.HOME_DIALOG);
-                    openDetail(CusConstants.HOME_DIALOG, mHomeBean, position);
+                    if (isLogin()) {
+                        calculate(0, CusConstants.HOME_DIALOG);
+                        openDetail(CusConstants.HOME_DIALOG, mHomeBean, position);
+                    }
+
                 }
             });
             if (overlays.size() > 0) {
