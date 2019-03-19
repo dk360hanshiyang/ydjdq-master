@@ -368,7 +368,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
                         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
                         req.userName = "gh_84f06fbaa705"; // 填小程序原始id
-                        //req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
+//                        req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
                         req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
                         api.sendReq(req);
                     } else {

@@ -60,6 +60,9 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
                             if (isLoadMore == 10) {
                                 mView.loadMoreData(response);
                                 mView.loadComplete();
+                            }else {
+                                mView.setMarketListData(response);
+
                             }
 
                         }

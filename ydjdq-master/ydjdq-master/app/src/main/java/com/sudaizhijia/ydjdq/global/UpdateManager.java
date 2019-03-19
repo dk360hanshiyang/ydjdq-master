@@ -101,7 +101,6 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks {
                             int versionCode = AppInfoUtil.getVersionCode(CusApplication.mContext);
                             int normalUpdateNo = response.getObject().getNormalUpdateNo();
                             int forceUpdateNo = response.getObject().getForcedUpdateNo();
-                            normalUpdateNo = 20;
                             if (versionCode < forceUpdateNo) {
                                 CusApplication.isUpdate = true;
                                 //强制更新
@@ -139,7 +138,7 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks {
         ImageView imgCloseUpdateVersion = view.findViewById(R.id.img_close_update_version);
         imgCloseUpdateVersion.setVisibility(isForceUpdate ? View.GONE : View.VISIBLE);
         VersionDialog versionDialog = new VersionDialog(context, ViewGroup.LayoutParams.MATCH_PARENT - 1,
-                ViewGroup.LayoutParams.MATCH_PARENT , view, R.style.dialog);
+                ViewGroup.LayoutParams.MATCH_PARENT, view, R.style.dialog);
         versionDialog.setCanceledOnTouchOutside(false);
         versionDialog.setCancelable(!isForceUpdate);
         txtUpdataDetail.setText(Html.fromHtml(object.getUpdateDetail()));

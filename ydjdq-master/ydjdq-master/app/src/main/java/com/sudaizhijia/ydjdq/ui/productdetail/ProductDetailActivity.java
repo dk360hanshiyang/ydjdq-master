@@ -2,16 +2,22 @@ package com.sudaizhijia.ydjdq.ui.productdetail;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
+import android.provider.MediaStore;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -28,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,6 +99,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -873,74 +881,6 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         webview.setWebChromeClient(new WebChromeClient() {
 
 
-            @Override
-            public void onProgressChanged(WebView webView, int i) {
-//                super.onProgressChanged(webView, i);
-                if (i == 100) {
-
-//                    postUvData();
-                    progressBar1.setVisibility(View.GONE);//加载完网页进度条消失
-                    loadingView1.setVisibility(View.GONE);
-                } else {
-                    progressBar1.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
-                    progressBar1.setProgress(i);//设置进度值
-                    loadingView1.setVisibility(View.VISIBLE);
-                    view = loadingView1.findViewById(R.id.loadingView);
-                    startLoadingView();
-                }
-
-            }
-
-
-            @Override
-            public boolean onJsConfirm(WebView arg0, String arg1, String arg2,
-                                       JsResult arg3) {
-                return super.onJsConfirm(arg0, arg1, arg2, arg3);
-            }
-
-            View myVideoView;
-            View myNormalView;
-            IX5WebChromeClient.CustomViewCallback callback;
-
-            // /////////////////////////////////////////////////////////
-            //
-
-            /**
-             * 全屏播放配置
-             */
-            @Override
-            public void onShowCustomView(View view,
-                                         IX5WebChromeClient.CustomViewCallback customViewCallback) {
-//                FrameLayout normalView = (FrameLayout) findViewById(R.id.web_filechooser);
-//                ViewGroup viewGroup = (ViewGroup) normalView.getParent();
-//                viewGroup.removeView(normalView);
-//                viewGroup.addView(view);
-//                myVideoView = view;
-//                myNormalView = normalView;
-//                callback = customViewCallback;
-            }
-
-            @Override
-            public void onHideCustomView() {
-                if (callback != null) {
-                    callback.onCustomViewHidden();
-                    callback = null;
-                }
-                if (myVideoView != null) {
-                    ViewGroup viewGroup = (ViewGroup) myVideoView.getParent();
-                    viewGroup.removeView(myVideoView);
-                    viewGroup.addView(myNormalView);
-                }
-            }
-
-            @Override
-            public boolean onJsAlert(WebView arg0, String arg1, String arg2,
-                                     JsResult arg3) {
-                /**
-                 * 这里写入你自定义的window alert
-                 */
-                return super.onJsAlert(null, arg1, arg2, arg3);
-            }
         });
 
         webview.setDownloadListener(new DownloadListener() {
@@ -989,6 +929,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
 //        webview.addJavascriptInterface(new AndroidtoJs(getContext(),this), "app");
         webview.addJavascriptInterface(new ThisFinish(), "app");
         webview.addJavascriptInterface(new Share(), "appShare");
+        webview.setWebChromeClient(new MyChromeClient(this));
 
         //TODO url为空的情况
         if (mHomeUrl == null) {
@@ -1518,4 +1459,325 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
                     }
                 });
     }
+
+    public class MyChromeClient extends WebChromeClient {
+
+        private Activity activity;
+
+
+        @SuppressWarnings("deprecation")
+        public MyChromeClient(Activity cordova) {
+
+            this.activity = cordova;
+
+        }
+
+        @Override
+        public void onProgressChanged(WebView webView, int i) {
+//                super.onProgressChanged(webView, i);
+            if (i == 100) {
+
+//                    postUvData();
+                progressBar1.setVisibility(View.GONE);//加载完网页进度条消失
+                loadingView1.setVisibility(View.GONE);
+            } else {
+                progressBar1.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                progressBar1.setProgress(i);//设置进度值
+                loadingView1.setVisibility(View.VISIBLE);
+                view = loadingView1.findViewById(R.id.loadingView);
+                startLoadingView();
+            }
+
+        }
+
+
+        @Override
+        public boolean onJsConfirm(WebView arg0, String arg1, String arg2,
+                                   JsResult arg3) {
+            return super.onJsConfirm(arg0, arg1, arg2, arg3);
+        }
+
+        View myVideoView;
+        View myNormalView;
+        IX5WebChromeClient.CustomViewCallback callback;
+
+        // /////////////////////////////////////////////////////////
+        //
+
+        /**
+         * 全屏播放配置
+         */
+        @Override
+        public void onShowCustomView(View view,
+                                     IX5WebChromeClient.CustomViewCallback customViewCallback) {
+//                FrameLayout normalView = (FrameLayout) findViewById(R.id.web_filechooser);
+//                ViewGroup viewGroup = (ViewGroup) normalView.getParent();
+//                viewGroup.removeView(normalView);
+//                viewGroup.addView(view);
+//                myVideoView = view;
+//                myNormalView = normalView;
+//                callback = customViewCallback;
+        }
+
+        @Override
+        public void onHideCustomView() {
+            if (callback != null) {
+                callback.onCustomViewHidden();
+                callback = null;
+            }
+            if (myVideoView != null) {
+                ViewGroup viewGroup = (ViewGroup) myVideoView.getParent();
+                viewGroup.removeView(myVideoView);
+                viewGroup.addView(myNormalView);
+            }
+        }
+
+        @Override
+        public boolean onJsAlert(WebView arg0, String arg1, String arg2,
+                                 JsResult arg3) {
+            /**
+             * 这里写入你自定义的window alert
+             */
+            return super.onJsAlert(null, arg1, arg2, arg3);
+        }
+
+//        @Override
+//        public void onProgressChanged(WebView webView, int i) {
+//            super.onProgressChanged(webView, i);
+//        }
+//        // <input type="file" name="fileField" id="fileField" />
+//
+//        // Android > 4.1.1
+
+
+        @Override
+        public boolean onShowFileChooser(WebView webView, com.tencent.smtt.sdk.ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+            // TODO 自动生成的方法存根
+            UploadMsg2 = filePathCallback;
+            this.activity.startActivityForResult(createDefaultOpenableIntent(),
+
+                    FILECHOOSER_RESULTCODE);
+            return true;
+        }
+
+        @SuppressWarnings("static-access")
+        @Override
+        public void openFileChooser(com.tencent.smtt.sdk.ValueCallback<Uri> valueCallback, String s, String s1) {
+//            super.openFileChooser(valueCallback, s, s1);
+            UploadMsg = valueCallback;
+
+            this.activity.startActivityForResult(createDefaultOpenableIntent(),
+
+                    FILECHOOSER_RESULTCODE);
+        }
+
+//
+//        public void openFileChooser(ValueCallback<Uri> uploadMsg,
+//
+//                                    String acceptType, String capture) {
+//
+//
+//
+//        }
+
+        // 3.0 +
+
+        @SuppressWarnings("static-access")
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+
+            UploadMsg = uploadMsg;
+
+            this.activity.startActivityForResult(createDefaultOpenableIntent(),
+
+                    FILECHOOSER_RESULTCODE);
+
+        }
+
+        // Android < 3.0
+
+        @SuppressWarnings("static-access")
+        public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+
+            UploadMsg = uploadMsg;
+
+            this.activity.startActivityForResult(createDefaultOpenableIntent(),
+
+                    FILECHOOSER_RESULTCODE);
+
+        }
+
+        private Intent createDefaultOpenableIntent() {
+
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+
+            i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+
+                    "image/*");
+
+            Intent chooser = createChooserIntent(createCameraIntent()/*
+             *
+             * ,
+             *
+             * createCamcorderIntent
+             *
+             * (),
+             *
+             * createSoundRecorderIntent
+             *
+             * ()
+             */);
+
+            chooser.putExtra(Intent.EXTRA_INTENT, i);
+
+            return chooser;
+
+        }
+
+        private Intent createChooserIntent(Intent... intents) {
+
+            Intent chooser = new Intent(Intent.ACTION_CHOOSER);
+
+            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents);
+
+            chooser.putExtra(Intent.EXTRA_TITLE, "选择图片");
+
+            return chooser;
+
+        }
+
+        @SuppressWarnings("static-access")
+        private Intent createCameraIntent() {
+
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            File externalDataDir = Environment
+
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+
+            File cameraDataDir = new File(externalDataDir.getAbsolutePath()
+
+                    + File.separator + "515aaa");
+
+            cameraDataDir.mkdirs();
+
+            mCameraFilePath = cameraDataDir.getAbsolutePath()
+
+                    + File.separator + System.currentTimeMillis() + ".jpg";
+
+            cameraIntent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+
+                    Uri.fromFile(new File(mCameraFilePath)));
+
+            return cameraIntent;
+
+        }
+
+        /*
+         *
+         * private Intent createCamcorderIntent() { return new
+         *
+         * Intent(MediaStore.ACTION_VIDEO_CAPTURE); }
+         *
+         *
+         *
+         * private Intent createSoundRecorderIntent() { return new
+         *
+         * Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION); }
+         */
+
+        public Uri getImageContentUri(Context context, File imageFile) {
+
+            String filePath = imageFile.getAbsolutePath();
+
+            Cursor cursor = context.getContentResolver().query(
+
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+
+                    new String[]{MediaStore.Images.Media._ID},
+
+                    MediaStore.Images.Media.DATA + "=? ",
+
+                    new String[]{filePath}, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+
+                int id = cursor.getInt(cursor
+
+                        .getColumnIndex(MediaStore.MediaColumns._ID));
+
+                Uri baseUri = Uri.parse("content://media/external/images/media");
+
+                return Uri.withAppendedPath(baseUri, "" + id);
+
+            } else {
+
+                if (imageFile.exists()) {
+
+                    ContentValues values = new ContentValues();
+
+                    values.put(MediaStore.Images.Media.DATA, filePath);
+
+                    return context.getContentResolver().insert(
+
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                } else {
+
+                    return null;
+
+                }
+
+            }
+
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        Log.i("infozt", "调用了");
+        if (requestCode == FILECHOOSER_RESULTCODE_FOR_ANDORID_5) {
+            Log.i("infozt", "方式1");
+
+            if (null == UploadMsg)
+                return;
+            if (mCameraFilePath != null) {
+                Uri uri = Uri.fromFile(new File(mCameraFilePath));
+                UploadMsg.onReceiveValue(uri);
+            } else {
+                Uri result = intent == null || resultCode != RESULT_OK ? null : intent.getData();
+                UploadMsg.onReceiveValue(result);
+            }
+            UploadMsg = null;
+
+        } else if (requestCode == FILECHOOSER_RESULTCODE) {
+            Log.i("infozt", "方式2");
+
+            if (null == UploadMsg2)
+                return;
+            Uri uri = null;
+            Uri result = (intent == null || resultCode != RESULT_OK) ? null : intent.getData();
+            if (result == null) {
+                if (mCameraFilePath != null) {
+                    uri = Uri.fromFile(new File(mCameraFilePath));
+                    UploadMsg2.onReceiveValue(new Uri[]{uri});
+                }
+            } else {
+                UploadMsg2.onReceiveValue(new Uri[]{result});
+            }
+
+            UploadMsg2 = null;
+        }
+        mCameraFilePath = null;
+    }
+
+    public ValueCallback<Uri> UploadMsg;
+    public ValueCallback<Uri[]> UploadMsg2;
+    public String mCameraFilePath = "";
+    public static final int FILECHOOSER_RESULTCODE = 5173;
+    public final static int FILECHOOSER_RESULTCODE_FOR_ANDORID_5 = 2;
 }

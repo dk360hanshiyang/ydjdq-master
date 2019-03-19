@@ -101,7 +101,7 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
             }
         }
 */
-        mPresenter.getMarketListInfo(false, currentPage + "", pageSize + "", 0, "moren", "99999", "1");
+        mPresenter.getMarketListInfo(false, currentPage + "", pageSize + "", 0, "moren", "9999999", "1");
         rltitlebar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
             @Override
@@ -223,7 +223,7 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
     private void loadMore() {
 
 //        LogUtils.e("pagesize===" + pageSize);
-        mPresenter.getMarketListInfo(false, currentPage + "", pageSize + "", 10, "moren", "99999", "1");
+        mPresenter.getMarketListInfo(false, currentPage + "", pageSize + "", 10, "moren", "9999999", "1");
 
     }
 
@@ -254,7 +254,7 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
                 } else if (position == 2) {
                     mSort = "zuiXin";
                 }
-                mPresenter.getMarketListInfo(false, 0 + "", 15 + "", 99, mSort, "99999", "1");
+                mPresenter.getMarketListInfo(false, 0 + "", 15 + "", 99, mSort, "9999999", "1");
                 sortAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : sort[position]);
                 mDropDownMenu.closeMenu();
@@ -265,13 +265,13 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    max = "99999";
+                    max = "9999999";
                     min = "1";
                 } else if (position == 1) {
                     max = "5000";
                     min = "1000";
                 } else if (position == 2) {
-                    max = "99999";
+                    max = "9999999";
                     min = "5000";
                 }
                 mPresenter.getMarketListInfo(false, 0 + "", 15 + "", 99, mSort, max, min);
@@ -310,7 +310,7 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         try {
             pageSize = bean.getObject().getDaQuanShowList().size();
-            mPresenter.getMarketListInfo(true, 0 + "", pageSize + "", 0, "moren", "99999", "1");
+            mPresenter.getMarketListInfo(true, 0 + "", pageSize + "", 0, "moren", "9999999", "1");
         } catch (Exception e) {
 
         }

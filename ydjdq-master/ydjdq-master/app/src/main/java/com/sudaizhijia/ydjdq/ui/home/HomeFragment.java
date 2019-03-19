@@ -295,7 +295,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         rlModulenameRefresh = recyclerView.findViewById(R.id.rl_modulename_refresh);
         initRefreshLayout();
         initRecycler();
-        if(sign){
+        if (sign) {
             initllFloatingWindow(recyclerView);
         }
 
@@ -486,33 +486,37 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     private void initPopUp() {
         Log.e("index", index + "()");
-        if (mHomeBean != null) {
-            if (mHomeBean.getObject() != null) {
-                if (mHomeBean.getObject().getPopUp() != null && mHomeBean.getObject().getPopUp().size() > 1) {
-                    if (index == mHomeBean.getObject().getPopUp().size() - 1) {
-                        index = 0;
-                        if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
-                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
-                        } else {
-                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
-                        }
+        try {
+            if (mHomeBean != null) {
+                if (mHomeBean.getObject() != null) {
+                    if (mHomeBean.getObject().getPopUp() != null && mHomeBean.getObject().getPopUp().size() > 1) {
+                        if (index == mHomeBean.getObject().getPopUp().size() - 1) {
+                            index = 0;
+                            if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
+                                Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
+                            } else {
+                                Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
+                            }
 
-                    } else {
-                        index++;
-                        if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
-                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
                         } else {
-                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
+                            index++;
+                            if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getImgUrl())) {
+                                Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
+                            } else {
+                                Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(index).getImgUrl()).into(imgFloating);
+                            }
                         }
-                    }
-                } else {
-                    if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(0).getImgUrl())) {
-                        Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(0).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
                     } else {
-                        Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(0).getImgUrl()).into(imgFloating);
+                        if (TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(0).getImgUrl())) {
+                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(0).getPupUpBorrowProductBean().getLogoUrl()).into(imgFloating);
+                        } else {
+                            Glide.with(getContext()).load(mHomeBean.getObject().getPopUp().get(0).getImgUrl()).into(imgFloating);
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
+
         }
     }
 
@@ -542,7 +546,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                         showADDialog(homeBean.getObject().getOverlays());
                     }
                     //获取apk更新
-                    UpdateManager  updateManager = new UpdateManager(getActivity());
+                    UpdateManager updateManager = new UpdateManager(getActivity());
                     updateManager.fetchUpdate(true);
                     CusApplication.Home_isFirst = false;
                 }
@@ -583,6 +587,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     }
 
     private boolean sign = true;
+
     @Override
     public void setAllData(HomeBean homeBean, boolean isFresh) {
 
@@ -621,9 +626,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             List<HomeBean.ObjectBean.TopBean> top = object.getTop();
             setTop(top);
             List<HomeBean.ObjectBean.PopupBean> popUp = object.getPopUp();
-            if(sign){
+            if (sign) {
                 setpopUp(popUp);
-            }else{
+            } else {
                 llFloatingWindow.setVisibility(View.GONE);
                 imgCloseFloating.setVisibility(View.GONE);
                 imgFloating.setVisibility(View.GONE);
@@ -640,7 +645,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     }
 
-    private void setpopUp( List<HomeBean.ObjectBean.PopupBean> popUp ) {
+    private void setpopUp(List<HomeBean.ObjectBean.PopupBean> popUp) {
         if (popUp.size() > 0) {
             llFloatingWindow.setVisibility(View.VISIBLE);
             imgCloseFloating.setVisibility(View.VISIBLE);
@@ -1115,7 +1120,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 imgCloseFloating.setVisibility(View.GONE);
                 llFloatingWindow.setVisibility(View.GONE);
                 imgFloating.setVisibility(View.GONE);
-                sign =false;
+                sign = false;
                 break;
         }
     }
