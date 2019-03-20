@@ -16,10 +16,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sudaizhijia.ydjdq.R;
 import com.sudaizhijia.ydjdq.http.API;
+import com.sudaizhijia.ydjdq.utils.StatusBarUtil;
 import com.sudaizhijia.ydjdq.wiget.BounceLoadingView;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.utils.TbsLog;
@@ -46,12 +48,25 @@ public class WebViewActivity extends AppCompatActivity {
     LinearLayout llLoading;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.ll_back)
+    RelativeLayout llBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_web_view);
         ButterKnife.bind(this);
+        StatusBarUtil.setRootViewFitsSystemWindows(WebViewActivity.this, false);
+        StatusBarUtil.setTranslucentStatus(this);
+        //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
+        //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+            //这样半透明+白=灰, 状态栏的文字能看得清
+            StatusBarUtil.setStatusBarColor(this, 0x55000000);
+        }
+
         initWebView();
     }
 
@@ -201,7 +216,7 @@ public class WebViewActivity extends AppCompatActivity {
         loadingView.start();
     }
 
-    @OnClick({R.id.tv_net_err_refresh, R.id.iv_back})
+    @OnClick({R.id.tv_net_err_refresh,R.id.ll_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_net_err_refresh:
@@ -210,7 +225,7 @@ public class WebViewActivity extends AppCompatActivity {
                 llLoading.setVisibility(View.VISIBLE);
                 startLoadingView();
                 break;
-            case R.id.iv_back:
+            case R.id.ll_back:
                 finish();
                 break;
         }

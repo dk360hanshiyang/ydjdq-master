@@ -72,6 +72,7 @@ import com.sudaizhijia.ydjdq.ui.newproduct.NewProductActivity;
 import com.sudaizhijia.ydjdq.utils.ActivityUtils;
 import com.sudaizhijia.ydjdq.utils.AppInfoUtil;
 import com.sudaizhijia.ydjdq.utils.KeyUtils;
+import com.sudaizhijia.ydjdq.utils.NumUtils;
 import com.sudaizhijia.ydjdq.utils.SharedPreUtils;
 import com.sudaizhijia.ydjdq.utils.StatusBarUtil;
 import com.sudaizhijia.ydjdq.wiget.BounceLoadingView;
@@ -103,6 +104,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -821,7 +823,12 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
                 super.onReceivedError(view, errorCode, description, failingUrl);
                 //6.0以下执行
                 //网络未连接
-                showErrorPage();
+                if (errorCode == -2) {
+
+                } else {
+                    showErrorPage();
+                }
+
                 Log.e("WebResourceError", errorCode + "" + description);
             }
 
@@ -1198,6 +1205,8 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         }
     }
 
+
+
     @Override
     public void showDialog(HomeBean homeBean2) {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_recommend, null);
@@ -1210,14 +1219,14 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         spanString.setSpan(span, 6, 6 + downLoadName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         txtRecommend.setText(spanString);
 
-
-        SpannableString spanString2 = new SpannableString("下款率为10%，经数据分析显");
+        int num = NumUtils.getNum(10, 40);
+        SpannableString spanString2 = new SpannableString("下款率为" + num + "%，经数据分析显");
         StyleSpan span2 = new StyleSpan(Typeface.BOLD);
         spanString2.setSpan(span2, 4, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         txtRecommend2.setText(spanString2);
 
-
-        SpannableString spanString4 = new SpannableString("率可达80%！");
+        int num2 = NumUtils.getNum(60, 90);
+        SpannableString spanString4 = new SpannableString("率可达" + num2 + "%！");
         StyleSpan span4 = new StyleSpan(Typeface.BOLD);
         spanString4.setSpan(span4, 3, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         txtRecommend4.setText(spanString4);

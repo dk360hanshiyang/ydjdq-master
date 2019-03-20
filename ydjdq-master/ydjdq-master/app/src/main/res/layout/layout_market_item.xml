@@ -83,4 +83,10 @@
         android:src="@mipmap/ic_go_new"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/img_default"
+        android:layout_width="match_parent"
+        android:src="@mipmap/quesheng"
+        android:visibility="gone"
+        android:layout_height="match_parent" />
 </RelativeLayout>

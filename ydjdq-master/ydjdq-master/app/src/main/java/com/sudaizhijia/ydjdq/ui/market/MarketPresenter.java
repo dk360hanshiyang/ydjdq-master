@@ -15,7 +15,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
-import java.nio.channels.ReadPendingException;
 
 import okhttp3.Call;
 
@@ -77,6 +76,7 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
 
                     @Override
                     public void onFail(Call call, Exception e, int id) {
+                        Toast.makeText(mView.getContext(), "网络出小差了，重试一下吧", Toast.LENGTH_SHORT).show();
                         if (isRefrsh) {
                             //TODO 刷新时网络错误
                             mView.stopRefresh();

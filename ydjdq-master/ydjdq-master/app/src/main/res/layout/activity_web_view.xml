@@ -67,57 +67,70 @@
     <RelativeLayout
         android:id="@+id/rl_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/shape_titlebg">
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:src="@mipmap/ic_back" />
-        <TextView
-            android:layout_centerInParent="true"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:text="用户服务协议"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:background="@drawable/shape_titlebg"
+        android:layout_height="75dp">
 
         <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_search"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="7dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/shape_search_bg">
 
-            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true">
+
+            <RelativeLayout
+                android:id="@+id/ll_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp" >
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/ic_back" />
+            </RelativeLayout>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="horizontal">
+                android:text="用户服务协议"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/ic_search" />
+            <RelativeLayout
+                android:id="@+id/rl_search"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/shape_search_bg"
+                android:visibility="gone">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="11dp"
-                    android:text="请输入贷款产品名称" />
-            </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_search" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="11dp"
+                        android:text="请输入贷款产品名称" />
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
-
     <WebView
         android:layout_below="@+id/rl_titlebar"
         android:id="@+id/webview"

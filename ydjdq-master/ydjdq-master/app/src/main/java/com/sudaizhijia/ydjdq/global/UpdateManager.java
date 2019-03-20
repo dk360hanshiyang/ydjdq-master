@@ -30,6 +30,7 @@ import com.sudaizhijia.ydjdq.http.HttpCallback;
 import com.sudaizhijia.ydjdq.service.UpDateService;
 import com.sudaizhijia.ydjdq.ui.main.MainActivity;
 import com.sudaizhijia.ydjdq.utils.AppInfoUtil;
+import com.sudaizhijia.ydjdq.utils.NumUtils;
 import com.sudaizhijia.ydjdq.utils.StringUtils;
 import com.sudaizhijia.ydjdq.wiget.MyDialog;
 import com.sudaizhijia.ydjdq.wiget.VersionDialog;
@@ -136,6 +137,7 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks {
         TextView txtUpdataDetail = view.findViewById(R.id.txt_updata_detail);
         Button btnUpdateVersion = view.findViewById(R.id.btn_update_version);
         ImageView imgCloseUpdateVersion = view.findViewById(R.id.img_close_update_version);
+        txtUpdateVetsion.setText(NumUtils.getNum(60, 90));
         imgCloseUpdateVersion.setVisibility(isForceUpdate ? View.GONE : View.VISIBLE);
         VersionDialog versionDialog = new VersionDialog(context, ViewGroup.LayoutParams.MATCH_PARENT - 1,
                 ViewGroup.LayoutParams.MATCH_PARENT, view, R.style.dialog);

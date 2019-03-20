@@ -7,14 +7,18 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
@@ -31,6 +35,7 @@ import com.sudaizhijia.ydjdq.ui.newpdu.now.SpaceItemDecoration;
 import com.sudaizhijia.ydjdq.ui.productdetail.ProductDetailActivity;
 import com.sudaizhijia.ydjdq.ui.search.SearchActivity;
 import com.sudaizhijia.ydjdq.utils.LogUtils;
+import com.sudaizhijia.ydjdq.utils.NetUtils;
 import com.sudaizhijia.ydjdq.utils.SharedPreUtils;
 import com.sudaizhijia.ydjdq.wiget.DropDownMenu;
 import com.umeng.analytics.MobclickAgent;
@@ -76,7 +81,9 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
     private String mSort = "moren";
     private String max;
     private String min;
-//    private boolean isFirst = true;
+    private ImageView imgDefault;
+    private TextView txtDefault;
+    //    private boolean isFirst = true;
 
 
     @Override
@@ -100,7 +107,9 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
 
             }
         }
+
 */
+        Log.e("currentPage", currentPage + "");
         mPresenter.getMarketListInfo(false, currentPage + "", pageSize + "", 0, "moren", "9999999", "1");
         rltitlebar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -282,6 +291,10 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
         });
         //init context view
         View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_market_contentview, null);
+        imgDefault = view.findViewById(R.id.img_default);
+        txtDefault = view.findViewById(R.id.txt_default);
+        imgDefault.setVisibility(View.GONE);
+        txtDefault.setVisibility(View.GONE);
         bgaRefreshLayout = view.findViewById(R.id.rl_refresh);
         recycler = view.findViewById(R.id.recycler_marekt);
         //init dropdownview
@@ -308,12 +321,18 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
      */
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        try {
-            pageSize = bean.getObject().getDaQuanShowList().size();
+        if (NetUtils.isNetConnected(getActivity())) {
+            if (bean != null) {
+                pageSize = bean.getObject().getDaQuanShowList().size();
+            } else {
+                pageSize = 16;
+            }
             mPresenter.getMarketListInfo(true, 0 + "", pageSize + "", 0, "moren", "9999999", "1");
-        } catch (Exception e) {
-
+        } else {
+            Toast.makeText(getActivity(), "网络状态不佳，请稍后再试", Toast.LENGTH_SHORT).show();
+            stopRefresh();
         }
+
 
     }
 
@@ -336,7 +355,14 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
             if (marketBean != null) {
                 if (marketBean.getObject() != null) {
                     if (marketBean.getObject().getDaQuanShowList() != null && marketBean.getObject().getDaQuanShowList().size() > 0) {
+                        imgDefault.setVisibility(View.GONE);
+                        txtDefault.setVisibility(View.GONE);
+                        recycler.setVisibility(View.VISIBLE);
                         marketAdapter.setNewData(marketBean.getObject().getDaQuanShowList());
+                    } else {
+                        imgDefault.setVisibility(View.VISIBLE);
+                        txtDefault.setVisibility(View.VISIBLE);
+                        recycler.setVisibility(View.GONE);
                     }
                 }
             }
@@ -344,7 +370,16 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
         currentPage = currentPage + pageSize;
         bean = (MarketBean) baseBean;
         List<MarketBean.ObjectBean.DaQuanShowListBean> daQuanShowList = bean.getObject().getDaQuanShowList();
-        marketAdapter.setNewData(daQuanShowList);
+        if (daQuanShowList.size() > 0) {
+            imgDefault.setVisibility(View.GONE);
+            txtDefault.setVisibility(View.GONE);
+            recycler.setVisibility(View.VISIBLE);
+            marketAdapter.setNewData(daQuanShowList);
+        } else {
+            imgDefault.setVisibility(View.VISIBLE);
+            txtDefault.setVisibility(View.VISIBLE);
+            recycler.setVisibility(View.GONE);
+        }
 
 
     }
@@ -353,6 +388,7 @@ public class MarketFragment extends MVPBaseFragment<MarketContract.View, MarketP
     public void setMarketListData(BaseBean baseBean) {
 //        isFirst = false;
         setDemoList(baseBean);
+        stopRefresh();
     }
 
     @Override

@@ -465,6 +465,16 @@ public class HomeBean extends BaseBean implements Serializable {
             private String title;
             @SerializedName("validateDate")
             private long validateDate;
+            @SerializedName("showType")
+            private String showType;
+
+            public String getShowType() {
+                return showType;
+            }
+
+            public void setShowType(String showType) {
+                this.showType = showType;
+            }
 
             public PupUpBorrowProductBean getPupUpBorrowProductBean() {
                 return pupUpBorrowProductBean;
@@ -1043,6 +1053,16 @@ public class HomeBean extends BaseBean implements Serializable {
             private int sortIndex;
             @SerializedName("validateDate")
             private long validateDate;
+            @SerializedName("imgUrl")
+            private String imgUrl;
+
+            public String getImgUrl() {
+                return imgUrl;
+            }
+
+            public void setImgUrl(String imgUrl) {
+                this.imgUrl = imgUrl;
+            }
 
             public BorrowProductBeanX getBorrowProduct() {
                 return borrowProduct;
@@ -1235,6 +1255,30 @@ public class HomeBean extends BaseBean implements Serializable {
             private int sortIndex;
             @SerializedName("validateDate")
             private long validateDate;
+            @SerializedName("imgUrl")
+            private String imgUrl;
+
+            @Override
+            public String toString() {
+                return "MiddleBean{" +
+                        "borrowProduct=" + borrowProduct +
+                        ", id=" + id +
+                        ", newLable=" + newLable +
+                        ", position=" + position +
+                        ", productId=" + productId +
+                        ", sortIndex=" + sortIndex +
+                        ", validateDate=" + validateDate +
+                        ", imgUrl='" + imgUrl + '\'' +
+                        '}';
+            }
+
+            public String getImgUrl() {
+                return imgUrl;
+            }
+
+            public void setImgUrl(String imgUrl) {
+                this.imgUrl = imgUrl;
+            }
 
             public BorrowProductBeanXX getBorrowProduct() {
                 return borrowProduct;
@@ -1317,6 +1361,19 @@ public class HomeBean extends BaseBean implements Serializable {
                 @SerializedName("linkedUrlTwo")
                 private String linkedUrlTwo;
 
+                @Override
+                public String toString() {
+                    return "BorrowProductBeanXX{" +
+                            "description='" + description + '\'' +
+                            ", id=" + id +
+                            ", linkedUrl='" + linkedUrl + '\'' +
+                            ", logoUrl='" + logoUrl + '\'' +
+                            ", maxAmount=" + maxAmount +
+                            ", name='" + name + '\'' +
+                            ", linkedUrlTwo='" + linkedUrlTwo + '\'' +
+                            '}';
+                }
+
                 public String getLinkedUrlTwo() {
                     return linkedUrlTwo;
                 }
@@ -1374,6 +1431,14 @@ public class HomeBean extends BaseBean implements Serializable {
             }
 
             public static class PositionBeanXX implements Serializable {
+                @Override
+                public String toString() {
+                    return "PositionBeanXX{" +
+                            "value='" + value + '\'' +
+                            ", key='" + key + '\'' +
+                            '}';
+                }
+
                 /**
                  * value : 中层推荐
                  * key : MIDDLE
@@ -1635,7 +1700,16 @@ public class HomeBean extends BaseBean implements Serializable {
             private int sortIndex;
             @SerializedName("validateDate")
             private long validateDate;
+            @SerializedName("imgUrl")
+            private String imgUrl;
 
+            public String getImgUrl() {
+                return imgUrl;
+            }
+
+            public void setImgUrl(String imgUrl) {
+                this.imgUrl = imgUrl;
+            }
             public BorrowProductBeanXXXX getBorrowProduct() {
                 return borrowProduct;
             }
@@ -2076,7 +2150,16 @@ public class HomeBean extends BaseBean implements Serializable {
             private int sortIndex;
             @SerializedName("validateDate")
             private long validateDate;
+            @SerializedName("imgUrl")
+            private String imgUrl;
 
+            public String getImgUrl() {
+                return imgUrl;
+            }
+
+            public void setImgUrl(String imgUrl) {
+                this.imgUrl = imgUrl;
+            }
             public BorrowProductBeanXXXXXX getBorrowProduct() {
                 return borrowProduct;
             }

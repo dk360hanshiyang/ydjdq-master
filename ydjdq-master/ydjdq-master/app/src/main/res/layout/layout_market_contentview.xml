@@ -3,23 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/page_bg">
+
     <TextView
-        android:textSize="12sp"
         android:id="@+id/tv_nihao"
-        android:text="经统计，同时申请4家以上产品，审批通过率高达95% "
-       android:paddingLeft="15dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:background="#fdf9bb"
-        android:textColor="#ff5a00"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="#fdf9bb"
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="8dp"
+        android:text="经统计，同时申请4家以上产品，审批通过率高达95% "
+        android:textColor="#ff5a00"
+        android:textSize="12sp" />
 
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
-        android:layout_below="@id/tv_nihao"
         android:id="@+id/rl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tv_nihao"
         android:background="@color/page_bg">
 
         <android.support.v7.widget.RecyclerView
@@ -28,4 +29,31 @@
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
     </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tv_nihao"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/img_default"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="170dp"
+            android:src="@mipmap/quesheng"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/txt_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_default"
+            android:layout_marginTop="27dp"
+            android:textSize="14sp"
+            android:textColor="@color/tv_tab_normal"
+            android:layout_centerHorizontal="true"
+            android:text="好产品还在路上..." />
+    </RelativeLayout>
 </RelativeLayout>

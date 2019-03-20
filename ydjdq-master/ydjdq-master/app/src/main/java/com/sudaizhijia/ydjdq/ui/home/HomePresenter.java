@@ -350,6 +350,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
 
                     }
                 });
+        Log.e("show",productShowId + " id"+ id);
     }
 
 

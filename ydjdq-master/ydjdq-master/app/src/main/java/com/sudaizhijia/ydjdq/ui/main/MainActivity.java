@@ -2,9 +2,13 @@ package com.sudaizhijia.ydjdq.ui.main;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -132,28 +136,87 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
     }
 
+    //创建碎片管理器
+    private FragmentManager manager;//碎片管理器
+
     /**
      * 初始化Fragment
      */
     private void initFragment() {
-        fragments = new ArrayList<>();
-        homeFragment = new HomeFragment();
-        marketFragment = new MarketFragment();
-        mustFragment = new MustFragment();
-        mineFragment = new MineFragment();
-        bbsFragment = new BBSFragment();
-        fragments.add(homeFragment);
-        fragments.add(marketFragment);
-        fragments.add(bbsFragment);
-        fragments.add(mustFragment);
-        fragments.add(mineFragment);
-
-        mHideFragment = new FragmentUtil(MainActivity.this);
-        mHideFragment.dataFragment(homeFragment);
+//        fragments = new ArrayList<>();
+//        fragments.add(homeFragment);
+//        fragments.add(marketFragment);
+//        fragments.add(bbsFragment);
+//        fragments.add(mustFragment);
+//        fragments.add(mineFragment);
+        manager = getSupportFragmentManager();//获取碎片管理器
+        goneFragment();
+        selectFragment(R.id.ll_home);
+//        mHideFragment = new FragmentUtil(MainActivity.this);
+//        mHideFragment.dataFragment(homeFragment);
 
 
     }
 
+    //根据ID选择碎片的方法
+    private void selectFragment(int ID) {
+        FragmentTransaction ft = manager.beginTransaction();
+        switch (ID) {
+            case R.id.ll_home:
+                if (homeFragment == null) {//为空，创建
+                    homeFragment = new HomeFragment();//创建
+                    ft.add(R.id.fl, homeFragment);//将碎片添加到专门存放碎片的容器中
+                } else {
+                    ft.show(homeFragment);//不为空，直接显示
+                }
+                break;
+
+            case R.id.ll_market:
+                if (marketFragment == null) {
+                    marketFragment = new MarketFragment();
+                    ft.add(R.id.fl, marketFragment);
+                } else {
+                    ft.show(marketFragment);
+                }
+                break;
+
+            case R.id.ll_must:
+                if (mustFragment == null) {
+                    mustFragment = new MustFragment();
+                    ft.add(R.id.fl, mustFragment);
+                } else {
+                    ft.show(mustFragment);
+                }
+                break;
+            case R.id.ll_mine:
+                if (mineFragment == null) {
+                    mineFragment = new MineFragment();
+                    ft.add(R.id.fl, mineFragment);
+                } else {
+                    ft.show(mineFragment);
+                }
+                break;
+        }
+        ft.commit();//提交
+    }
+
+    //隐藏所有碎片的饿方法
+    private void goneFragment() {
+        FragmentTransaction ft = manager.beginTransaction();
+        if (homeFragment != null) {
+            ft.hide(homeFragment);
+        }
+        if (marketFragment != null) {
+            ft.hide(marketFragment);
+        }
+        if (mustFragment != null) {
+            ft.hide(mustFragment);
+        }
+        if (mineFragment != null) {
+            ft.hide(mineFragment);
+        }
+        ft.commit();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -162,17 +225,44 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     }
 
 
+    @SuppressLint("MissingSuperCall")
     @Override
-    public void onBackPressed() {
-        if (fragments.get(index).equals(bbsFragment)) {
-            bbsFragment.goback();
-        } else {
-            // handle by activity
-            super.onBackPressed();
-        }
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);//不保存fragment保证再次加载新创建
     }
 
 
+    @Override
+    protected void onDestroy() {
+        if (homeFragment != null) {
+            homeFragment = null;
+        }
+        if (marketFragment != null) {
+            marketFragment = null;
+        }
+        if (mustFragment != null) {
+            mustFragment = null;
+        }
+        if (mineFragment != null) {
+            mineFragment = null;
+        }
+        super.onDestroy();
+    }
+
+    /**
+     * 没有论坛先注释
+     *
+     * @return
+     */
+//    @Override
+//    public void onBackPressed() {
+//        if (fragments.get(index).equals(bbsFragment)) {
+//            bbsFragment.goback();
+//        } else {
+//            // handle by activity
+//            super.onBackPressed();
+//        }
+//    }
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -184,7 +274,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public void toMrket() {
         setEnable(false, tvMarket, ivMarket);
         setOtherEnable(true, tvHome, ivHome, tvMust, ivMust, tvMine, ivMine, tvBBS, ivBBS);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl, new MarketFragment()).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fl, new MarketFragment()).commit();
+        goneFragment();
+        selectFragment(R.id.ll_market);
     }
 
     public boolean isLogin() {
@@ -205,7 +297,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 if (isLogin()) {
                     setEnable(false, tvBBS, ivBBS);
                     setOtherEnable(true, tvMarket, ivMarket, tvMust, ivMust, tvMine, ivMine, tvHome, ivHome);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fl, fragments.get(index)).commit();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fl, fragments.get(index)).commit();
                 }
 
                 break;
@@ -214,21 +306,27 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 setEnable(false, tvHome, ivHome);
                 setOtherEnable(true, tvMarket, ivMarket, tvMust, ivMust, tvMine, ivMine, tvBBS, ivBBS);
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fl, fragments.get(index)).commit();
-                mHideFragment.dataFragment(fragments.get(index));
+//                mHideFragment.dataFragment(fragments.get(index));
+                goneFragment();
+                selectFragment(R.id.ll_home);
                 break;
             case R.id.ll_market:
                 index = 1;
                 setEnable(false, tvMarket, ivMarket);
                 setOtherEnable(true, tvHome, ivHome, tvMust, ivMust, tvMine, ivMine, tvBBS, ivBBS);
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fl, new MarketFragment()).commit();
-                mHideFragment.dataFragment(fragments.get(index));
+//                mHideFragment.dataFragment(fragments.get(index));
+                goneFragment();
+                selectFragment(R.id.ll_market);
                 break;
             case R.id.ll_must:
                 index = 3;
                 setEnable(false, tvMust, ivMust);
                 setOtherEnable(true, tvMarket, ivMarket, tvHome, ivHome, tvMine, ivMine, tvBBS, ivBBS);
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fl, fragments.get(index)).commit();
-                mHideFragment.dataFragment(fragments.get(index));
+//                mHideFragment.dataFragment(fragments.get(index));
+                goneFragment();
+                selectFragment(R.id.ll_must);
                 mustFragment.reload();
                 break;
             case R.id.ll_mine:
@@ -236,7 +334,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 setEnable(false, tvMine, ivMine);
                 setOtherEnable(true, tvMarket, ivMarket, tvMust, ivMust, tvHome, ivHome, tvBBS, ivBBS);
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fl, fragments.get(index)).commit();
-                mHideFragment.dataFragment(fragments.get(index));
+//                mHideFragment.dataFragment(fragments.get(index));
+                goneFragment();
+                selectFragment(R.id.ll_mine);
                 break;
         }
     }
@@ -271,6 +371,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
 //            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CAMERA
     };
 
     private void initPermission() {
