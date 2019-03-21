@@ -137,7 +137,7 @@ public class UpdateManager implements EasyPermissions.PermissionCallbacks {
         TextView txtUpdataDetail = view.findViewById(R.id.txt_updata_detail);
         Button btnUpdateVersion = view.findViewById(R.id.btn_update_version);
         ImageView imgCloseUpdateVersion = view.findViewById(R.id.img_close_update_version);
-        txtUpdateVetsion.setText(NumUtils.getNum(60, 90));
+        txtUpdateVetsion.setText(NumUtils.getNum(60, 90)+"%");
         imgCloseUpdateVersion.setVisibility(isForceUpdate ? View.GONE : View.VISIBLE);
         VersionDialog versionDialog = new VersionDialog(context, ViewGroup.LayoutParams.MATCH_PARENT - 1,
                 ViewGroup.LayoutParams.MATCH_PARENT, view, R.style.dialog);

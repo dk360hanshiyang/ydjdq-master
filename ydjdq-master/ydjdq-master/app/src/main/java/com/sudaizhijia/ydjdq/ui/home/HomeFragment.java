@@ -480,10 +480,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     public void onResume() {
         super.onResume();
         MobclickAgent.onPageStart("首页");
-        if (isLogin()) {
-            initPopUp();
-        }
-
+        initPopUp();
     }
 
     private void initPopUp() {

@@ -56,6 +56,7 @@ public class SplashActivity extends MVPBaseActivity<SplashContract.View, SplashP
         if (CusApplication.isLogin) {
             intentMain();
         } else {
+            Log.e("getFOURCE_REDIRECT",bean.getObject().getFOURCE_REDIRECT()+"");
             try {
                 if (!TextUtils.isEmpty(bean.getObject().getFOURCE_REDIRECT())) {
                     if (bean.getObject().getFOURCE_REDIRECT().equals("true")) {

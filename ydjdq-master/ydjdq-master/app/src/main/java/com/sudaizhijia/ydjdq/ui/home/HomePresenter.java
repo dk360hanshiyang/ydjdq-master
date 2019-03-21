@@ -263,12 +263,12 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
 
                     @Override
                     public void onFail(Call call, Exception e, int id) {
-                        if (e instanceof SocketTimeoutException) {//超时异常
-                            mView.stopRefresh();
-                        }
-                        if (e instanceof ConnectException) {//连接异常
-                            mView.stopRefresh();
-                        }
+//                        if (e instanceof SocketTimeoutException) {//超时异常
+//                            mView.stopRefresh();
+//                        }
+//                        if (e instanceof ConnectException) {//连接异常
+//                            mView.stopRefresh();
+//                        }
                         mView.error500();
                     }
                 });
