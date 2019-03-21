@@ -239,10 +239,10 @@ public class NewNowAdapter2 extends BaseMultiItemQuickAdapter<MultiItemEntity, B
             String mposition = "";
             int sortIndex = 0;
             int id = 0;
-            productShowId = bean1.getProductId();
+            productShowId = bean1.getId();
             mposition = bean1.getPosition().getKey();
             sortIndex = bean1.getSortIndex();
-            id = bean1.getId();
+            id = bean1.getBorrowProduct().getId();
             OkHttpUtils
                     .post()
                     .url(API.UV)

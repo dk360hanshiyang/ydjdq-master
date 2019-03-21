@@ -14,11 +14,11 @@ public class API {
     /**
      * 测试
      */
-    public static String SERVER_URL = "http://39.98.194.113:8080/app/v1/";
+//    public static String SERVER_URL = "http://39.98.194.113:8080/app/v1/";
     /**
      * 线上
      */
-//    public static String SERVER_URL = "http://39.98.84.34:8080/app/v1/";
+    public static String SERVER_URL = "http://39.98.84.34:8080/app/v1/";
     /**
      * 首页注册协议地址
      */

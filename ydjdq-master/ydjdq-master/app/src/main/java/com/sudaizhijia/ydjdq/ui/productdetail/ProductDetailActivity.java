@@ -952,48 +952,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         CookieSyncManager.getInstance().sync();
     }
 
-    private void postUvData() {
-        CusApplication.random = AppInfoUtil.getNowTime();
-        int productShowId = 0;
-        String position = "";
-        int sortIndex = 0;
-        int id = 0;
 
-        if (type == CusConstants.MARKET_DATA) {
-            productShowId = marketBean.getProductId();
-            position = marketBean.getPosition().getKey();
-            sortIndex = marketBean.getSortIndex();
-            id = marketBean.getBorrowProduct().getId();
-        }
-        OkHttpUtils
-                .post()
-//                .tag(getTag())
-                .url(API.UV)
-                .addParams("productShowId", productShowId + "")
-                .addParams("position", position)
-                .addParams("sortIndex", sortIndex + "")
-                .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
-                .addParams("productId", id + "")
-                .addParams("actionSerialNumber", CusApplication.random)
-                .addParams("userId", CusApplication.object.getUserId() + "")
-                .addParams("accessPort", "2")
-                .build()
-                .execute(new HttpCallback() {
-                    @Override
-                    public void onSuccess(BaseBean response, int id) {
-
-                    }
-
-                    @Override
-                    public void onFail(Call call, Exception e, int id) {
-                    }
-
-                    @Override
-                    public void onResponse(Object response, int id) {
-
-                    }
-                });
-    }
 
     private void calcuteRegister() {
         new Thread() {
@@ -1434,7 +1393,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         int sortIndex = 0;
         int id = 0;
 
-        productShowId = homeBean.getProductId();
+        productShowId = homeBean.getId();
 //        position = homeBean.getPosition().getKey();
         position = homeBean.getPosition();
         sortIndex = homeBean.getSortIndex();

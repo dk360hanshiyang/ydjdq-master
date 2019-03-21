@@ -94,7 +94,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
 
 
             if (type == CusConstants.MINE_SHOW) {
-                productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getProductId();
+                productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getId();
                 position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
                 sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
                 id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();
@@ -104,7 +104,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
 //            sortIndex = mineBean.getObject().getMyVo().getAppBannerList().get(position1).getSortIndex();
 //            id = mineBean.getObject().getMyVo().getAppBannerList().get(position1).getBorrowProduct().getId();
             } else if (type == CusConstants.MINE_ZHUANTI) {
-                productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getProductId();
+                productShowId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getId();
                 position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
                 sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
                 id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();

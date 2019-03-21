@@ -77,10 +77,10 @@ public class NewNowAdapterItem extends RecyclerView.Adapter<NewNowAdapterItem.Vi
             String mposition = "";
             int sortIndex = 0;
             int id = 0;
-            productShowId = bean1.getProductId();
+            productShowId = bean1.getId();
             mposition = bean1.getPosition().getKey();
             sortIndex = bean1.getSortIndex();
-            id = bean1.getId();
+            id = bean1.getBorrowProduct().getId();
             OkHttpUtils
                     .post()
                     .url(API.UV)
@@ -125,7 +125,6 @@ public class NewNowAdapterItem extends RecyclerView.Adapter<NewNowAdapterItem.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         NewProductBean.ObjectBean.TodayNewListBean.ProductShowListBeanX bean = data.get(position).getProductShowList().get(i);
-        double maxAmount = bean.getBorrowProduct().getMaxAmount();
         Log.e("bean", bean.toString());
         Log.e("position", "position" + i);
         NumberFormat nf = new DecimalFormat("#.#");
@@ -147,7 +146,7 @@ public class NewNowAdapterItem extends RecyclerView.Adapter<NewNowAdapterItem.Vi
             viewHolder.tv_nowpdu_name.setText(bean.getBorrowProduct().getName());
 
         }
-        viewHolder.tv_nowpdu_des.setText("最高" + nf.format(maxAmount) + "元");
+        viewHolder.tv_nowpdu_des.setText("最高" + nf.format(bean.getBorrowProduct().getMaxAmount()) + "元");
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

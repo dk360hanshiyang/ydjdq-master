@@ -71,7 +71,7 @@ public class MoreProdctPresenter extends BasePresenterImpl<MoreProdctContract.Vi
         int id = 0;
 
         if (type == CusConstants.MOREPRODUCT) {
-            productShowId = bean.getObject().get(position1).getProductId();
+            productShowId = bean.getObject().get(position1).getId();
             position = bean.getObject().get(position1).getPosition().getKey();
             sortIndex = bean.getObject().get(position1).getSortIndex();
             id = bean.getObject().get(position1).getBorrowProduct().getId();

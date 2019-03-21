@@ -123,6 +123,30 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
             }
         });
+        etUserPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus == false) {
+                    iv_clear.setVisibility(View.GONE);
+                } else {
+                    if (etUserPhone.length() > 0) {
+                        iv_clear.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+        etUserPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus == false) {
+                    iv_clear_or_code.setVisibility(View.GONE);
+                } else {
+                    if (etUserPassword.length() > 0) {
+                        iv_clear_or_code.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
     }
 
     @Override

@@ -103,7 +103,7 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
         int id = 0;
 
         if (type == CusConstants.MARKET_DATA) {
-            productShowId = homeBean.getObject().getDaQuanShowList().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getDaQuanShowList().get(currentPosi).getId();
             position = homeBean.getObject().getDaQuanShowList().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getDaQuanShowList().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getDaQuanShowList().get(currentPosi).getBorrowProduct().getId();

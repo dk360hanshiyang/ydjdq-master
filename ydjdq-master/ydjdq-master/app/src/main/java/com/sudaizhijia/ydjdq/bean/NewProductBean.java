@@ -358,13 +358,6 @@ public class NewProductBean extends BaseBean implements Serializable{
                     @SerializedName("linkedUrlTwo")
                     private String linkedUrlTwo;
 
-                    public String getLinkedUrlTwo() {
-                        return linkedUrlTwo;
-                    }
-
-                    public void setLinkedUrlTwo(String linkedUrlTwo) {
-                        this.linkedUrlTwo = linkedUrlTwo;
-                    }
                     @Override
                     public String toString() {
                         return "BorrowProductBeanX{" +
@@ -375,7 +368,16 @@ public class NewProductBean extends BaseBean implements Serializable{
                                 ", logoUrl='" + logoUrl + '\'' +
                                 ", maxAmount=" + maxAmount +
                                 ", name='" + name + '\'' +
+                                ", linkedUrlTwo='" + linkedUrlTwo + '\'' +
                                 '}';
+                    }
+
+                    public String getLinkedUrlTwo() {
+                        return linkedUrlTwo;
+                    }
+
+                    public void setLinkedUrlTwo(String linkedUrlTwo) {
+                        this.linkedUrlTwo = linkedUrlTwo;
                     }
 
                     public int getNewLable() {

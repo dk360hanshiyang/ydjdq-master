@@ -64,6 +64,23 @@
         android:layout_marginTop="50dp">
 
 
+        <EditText
+
+            android:id="@+id/et_user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toLeftOf="@id/ll_clear"
+            android:background="@null"
+            android:hint="请输入您的手机号"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textColor="@color/operation_tvcolor"
+            android:textColorHint="@color/drop_divided"
+            android:textSize="14sp"
+            tools:ignore="NotSibling" />
+
         <RelativeLayout
             android:id="@+id/ll_clear"
             android:layout_width="20dp"
@@ -80,24 +97,6 @@
                 android:src="@mipmap/ic_clear"
                 android:visibility="gone" />
         </RelativeLayout>
-
-
-        <EditText
-
-            android:id="@+id/et_user_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toLeftOf="@id/iv_clear"
-            android:background="@null"
-            android:hint="请输入您的手机号"
-            android:inputType="phone"
-            android:maxLength="11"
-            android:textColor="@color/operation_tvcolor"
-            android:textColorHint="@color/drop_divided"
-            android:textSize="14sp"
-            tools:ignore="NotSibling" />
 
         <ImageView
             android:layout_width="match_parent"

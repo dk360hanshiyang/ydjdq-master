@@ -248,12 +248,12 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
         int id = 0;
 
         if (type == CusConstants.HOMEINFO) {
-            productShowId = homeBean.getObject().getList().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getList().get(currentPosi).getId();
             position = homeBean.getObject().getList().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getList().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getList().get(currentPosi).getBorrowProduct().getId();
         } else if (type == CusConstants.TOP) {
-            productShowId = homeBean.getObject().getTop().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getTop().get(currentPosi).getId();
             position = homeBean.getObject().getTop().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getTop().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getTop().get(currentPosi).getBorrowProduct().getId();
@@ -262,21 +262,21 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
                 return;
             }
             id = homeBean.getObject().getMiddle().get(currentPosi).getBorrowProduct().getId();
-            productShowId = homeBean.getObject().getMiddle().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getMiddle().get(currentPosi).getId();
             position = homeBean.getObject().getMiddle().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getMiddle().get(currentPosi).getSortIndex();
         } else if (type == CusConstants.BANNER) {
-            productShowId = homeBean.getObject().getBanner().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getBanner().get(currentPosi).getId();
             position = homeBean.getObject().getBanner().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getBanner().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getBanner().get(currentPosi).getBorrowProduct().getId();
         } else if (type == CusConstants.REPORTMENT) {
-            productShowId = homeBean.getObject().getPaymentReport().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getPaymentReport().get(currentPosi).getId();
             position = homeBean.getObject().getPaymentReport().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getPaymentReport().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getPaymentReport().get(currentPosi).getBorrowProduct().getId();
         } else if (type == CusConstants.DUWNLOAD) {
-            productShowId = homeBean.getObject().getDownLoadPreview().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getDownLoadPreview().get(currentPosi).getId();
             position = homeBean.getObject().getDownLoadPreview().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getDownLoadPreview().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getDownLoadPreview().get(currentPosi).getBorrowProductDown().getId();

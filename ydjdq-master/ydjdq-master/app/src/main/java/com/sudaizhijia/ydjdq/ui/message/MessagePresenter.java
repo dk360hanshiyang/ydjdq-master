@@ -91,7 +91,7 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View> im
 
 
         if (type == CusConstants.MESSAGE_MSG) {
-            productShowId = homeBean.getObject().getMessageList().get(currentPosi).getProductId();
+            productShowId = homeBean.getObject().getMessageList().get(currentPosi).getId();
             position = homeBean.getObject().getMessageList().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getMessageList().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getMessageList().get(currentPosi).getBorrowProduct().getId();

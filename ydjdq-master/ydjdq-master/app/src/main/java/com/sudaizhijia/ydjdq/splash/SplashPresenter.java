@@ -134,7 +134,7 @@ public class SplashPresenter extends BasePresenterImpl<SplashContract.View> impl
             if(bean.getObject() == null || bean.getObject().getProductList().size() <= 0 ){
                 return;
             }
-            productShowId = bean.getObject().getProductList().get(position1).getProductId();
+            productShowId = bean.getObject().getProductList().get(position1).getId();
             position = bean.getObject().getProductList().get(position1).getPosition().getKey();
             sortIndex = bean.getObject().getProductList().get(position1).getSortIndex();
             id = bean.getObject().getProductList().get(position1).getBorrowProduct().getId();

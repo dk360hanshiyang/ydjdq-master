@@ -94,7 +94,7 @@ public class AndroidtoJsDetials extends Object {
         int sortIndex = 0;
         int id = 0;
 
-        productShowId = homeBean.getProductId();
+        productShowId = homeBean.getId();
 //        position = homeBean.getPosition().getKey();
         position = homeBean.getPosition();
         sortIndex = homeBean.getSortIndex();
