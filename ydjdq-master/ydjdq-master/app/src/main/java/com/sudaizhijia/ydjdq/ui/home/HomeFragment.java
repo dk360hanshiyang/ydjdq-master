@@ -1105,7 +1105,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                     } else {
                         Toast.makeText(getContext(), "暂无该口子信息！", Toast.LENGTH_SHORT).show();
                     }
-
                 }
                 break;
             case R.id.ll_change_app_three:
@@ -1148,8 +1147,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                     try {
                         if (!TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getShowType())) {
                             if (mHomeBean.getObject().getPopUp().get(index).getShowType().equals(CusConstants.HUODONG_TYPE) || mHomeBean.getObject().getTop().get(index).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
-                                calculate(index, CusConstants.ZHUANTI);
-                                openDetail(CusConstants.ZHUANTI, mHomeBean, index);
+                                calculate(index, CusConstants.POP_ZHUANTI);
+                                openDetail(CusConstants.POP_ZHUANTI, mHomeBean, index);
                             } else {
                                 //产品
                                 if (mHomeBean.getObject() != null && mHomeBean.getObject().getPopUp().size() > 0) {

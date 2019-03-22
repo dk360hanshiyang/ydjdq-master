@@ -99,6 +99,16 @@ public class MessageBean extends BaseBean implements Serializable{
             private String title;
             @SerializedName("validateDate")
             private long validateDate;
+            @SerializedName("positionId")
+            private int positionId;
+
+            public int getPositionId() {
+                return positionId;
+            }
+
+            public void setPositionId(int positionId) {
+                this.positionId = positionId;
+            }
 
             public BorrowProductBean getBorrowProduct() {
                 return borrowProduct;

@@ -59,7 +59,7 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
                             if (isLoadMore == 10) {
                                 mView.loadMoreData(response);
                                 mView.loadComplete();
-                            }else {
+                            } else {
                                 mView.setMarketListData(response);
 
                             }
@@ -100,6 +100,7 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
         int productShowId = 0;
         String position = "";
         int sortIndex = 0;
+        int positionId = 0;
         int id = 0;
 
         if (type == CusConstants.MARKET_DATA) {
@@ -107,6 +108,7 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
             position = homeBean.getObject().getDaQuanShowList().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getDaQuanShowList().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getDaQuanShowList().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getDaQuanShowList().get(currentPosi).getPositionId();
         }
         OkHttpUtils
                 .post()
@@ -117,6 +119,7 @@ public class MarketPresenter extends BasePresenterImpl<MarketContract.View> impl
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                 .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")

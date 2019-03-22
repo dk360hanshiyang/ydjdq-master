@@ -204,8 +204,8 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
             stringBuilder.append(location.getLongitude());
             stringBuilder.append("\n纬度：");
             stringBuilder.append(location.getLatitude());
-            Log.e("stringBuilder", stringBuilder.toString());
-            Log.i("lgq", ".....经度===" + location.getLongitude() + "...纬度+=====" + location.getLatitude());
+//            Log.e("stringBuilder", stringBuilder.toString());
+//            Log.i("lgq", ".....经度===" + location.getLongitude()  "...纬度+=====" + location.getLatitude());
             Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
             try {
                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
@@ -219,7 +219,6 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
                     int startPlace = data.indexOf("feature=") + "feature=".length();
                     int endplace = data.indexOf(",", startPlace);
                     String place = data.substring(startPlace, endplace);
-                    Log.e("city", city + "");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -228,13 +227,13 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
             city = "无法获取地理位置";
         }
 
-        Log.e("position", city);
-        Log.e("netType", NetUtils.getNetworkState(getContext()));
-        Log.e("version", SystemUtil.getSystemVersion());
-        Log.e("accessPort", SystemUtil.getSystemModel());
-        Log.e("pnoneType", SystemUtil.getSystemMANUFACTURER());
-        Log.e("IMSI", MobileInfoUtil.getIMSI(getContext()));
-        Log.e("IMEI", MobileInfoUtil.getIMEI(getContext()));
+//        Log.e("position", city);
+//        Log.e("netType", NetUtils.getNetworkState(getContext()));
+//        Log.e("version", SystemUtil.getSystemVersion());
+//        Log.e("accessPort", SystemUtil.getSystemModel());
+//        Log.e("pnoneType", SystemUtil.getSystemMANUFACTURER());
+//        Log.e("IMSI", MobileInfoUtil.getIMSI(getContext()));
+//        Log.e("IMEI", MobileInfoUtil.getIMEI(getContext()));
         homeInfo();
     }
 
@@ -279,6 +278,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
         CusApplication.random = AppInfoUtil.getNowTime();
         int productShowId = 0;
         String position = "";
+        int positionId = 0;
         int sortIndex = 0;
         int id = 0;
 
@@ -287,11 +287,13 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
             position = homeBean.getObject().getList().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getList().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getList().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getList().get(currentPosi).getPositionId();
         } else if (type == CusConstants.TOP) {
             productShowId = homeBean.getObject().getTop().get(currentPosi).getId();
             position = homeBean.getObject().getTop().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getTop().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getTop().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getTop().get(currentPosi).getPositionId();
         } else if (type == CusConstants.MIDDLE) {
             if (homeBean.getObject().getMiddle().size() < currentPosi) {
                 return;
@@ -300,27 +302,38 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
             productShowId = homeBean.getObject().getMiddle().get(currentPosi).getId();
             position = homeBean.getObject().getMiddle().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getMiddle().get(currentPosi).getSortIndex();
+            positionId = homeBean.getObject().getMiddle().get(currentPosi).getPositionId();
         } else if (type == CusConstants.BANNER) {
             productShowId = homeBean.getObject().getBanner().get(currentPosi).getId();
             position = homeBean.getObject().getBanner().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getBanner().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getBanner().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getBanner().get(currentPosi).getPositionId();
         } else if (type == CusConstants.REPORTMENT) {
             productShowId = homeBean.getObject().getPaymentReport().get(currentPosi).getId();
             position = homeBean.getObject().getPaymentReport().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getPaymentReport().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getPaymentReport().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getPaymentReport().get(currentPosi).getPositionId();
         } else if (type == CusConstants.POPUP) {
             productShowId = homeBean.getObject().getPopUp().get(currentPosi).getId();
             position = homeBean.getObject().getPopUp().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getPopUp().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getPopUp().get(currentPosi).getPupUpBorrowProductBean().getId();
+            positionId = homeBean.getObject().getPopUp().get(currentPosi).getPositionId();
         } else if (type == CusConstants.ZHUANTI) {
 
             productShowId = homeBean.getObject().getTop().get(currentPosi).getId();
             position = homeBean.getObject().getTop().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getTop().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getTop().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getTop().get(currentPosi).getPositionId();
+        } else if (type == CusConstants.POP_ZHUANTI) {
+            productShowId = homeBean.getObject().getPopUp().get(currentPosi).getId();
+            position = homeBean.getObject().getPopUp().get(currentPosi).getPosition().getKey();
+            sortIndex = homeBean.getObject().getPopUp().get(currentPosi).getSortIndex();
+            id = homeBean.getObject().getPopUp().get(currentPosi).getPupUpBorrowProductBean().getId();
+            positionId = homeBean.getObject().getPopUp().get(currentPosi).getPositionId();
         }
         OkHttpUtils
                 .post()
@@ -331,6 +344,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                 .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")
@@ -350,7 +364,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
 
                     }
                 });
-        Log.e("show",productShowId + " id"+ id);
+        Log.e("show", productShowId + " id" + id);
     }
 
 

@@ -776,10 +776,20 @@ public class HomeBean extends BaseBean implements Serializable {
             private PositionBeanX position;
             @SerializedName("productId")
             private int productId;
+            @SerializedName("positionId")
+            private int positionId;
             @SerializedName("sortIndex")
             private int sortIndex;
             @SerializedName("validateDate")
             private long validateDate;
+
+            public int getPositionId() {
+                return positionId;
+            }
+
+            public void setPositionId(int positionId) {
+                this.positionId = positionId;
+            }
 
             public BorrowProductDown getBorrowProductDown() {
                 return borrowProductDown;
@@ -1055,6 +1065,16 @@ public class HomeBean extends BaseBean implements Serializable {
             private long validateDate;
             @SerializedName("imgUrl")
             private String imgUrl;
+            @SerializedName("positionId")
+            private int positionId;
+
+            public int getPositionId() {
+                return positionId;
+            }
+
+            public void setPositionId(int positionId) {
+                this.positionId = positionId;
+            }
 
             public String getImgUrl() {
                 return imgUrl;
@@ -1257,6 +1277,16 @@ public class HomeBean extends BaseBean implements Serializable {
             private long validateDate;
             @SerializedName("imgUrl")
             private String imgUrl;
+            @SerializedName("positionId")
+            private int positionId;
+
+            public int getPositionId() {
+                return positionId;
+            }
+
+            public void setPositionId(int positionId) {
+                this.positionId = positionId;
+            }
 
             @Override
             public String toString() {

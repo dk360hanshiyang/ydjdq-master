@@ -128,6 +128,7 @@ public class SplashPresenter extends BasePresenterImpl<SplashContract.View> impl
         int productShowId = 0;
         String position = "";
         int sortIndex = 0;
+        int positionId = 0;
         int id = 0;
 
         if (type == CusConstants.SPLASH_TYPE) {
@@ -138,6 +139,7 @@ public class SplashPresenter extends BasePresenterImpl<SplashContract.View> impl
             position = bean.getObject().getProductList().get(position1).getPosition().getKey();
             sortIndex = bean.getObject().getProductList().get(position1).getSortIndex();
             id = bean.getObject().getProductList().get(position1).getBorrowProduct().getId();
+            positionId = bean.getObject().getProductList().get(position1).getPositionId();
         }
         OkHttpUtils
                 .post()
@@ -148,6 +150,7 @@ public class SplashPresenter extends BasePresenterImpl<SplashContract.View> impl
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                 .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")

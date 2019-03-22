@@ -45,6 +45,16 @@ public class MoreProductBean extends BaseBean implements Serializable{
         private int productId;
         @SerializedName("sortIndex")
         private int sortIndex;
+        @SerializedName("positionId")
+        private int positionId;
+
+        public int getPositionId() {
+            return positionId;
+        }
+
+        public void setPositionId(int positionId) {
+            this.positionId = positionId;
+        }
 
         public BorrowProductBean getBorrowProduct() {
             return borrowProduct;

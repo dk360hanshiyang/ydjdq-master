@@ -22,6 +22,7 @@ public class CusConstants {
     public static final int  DUWNLOAD = 810;
     public static final int  POPUP = 811;
     public static final int  ZHUANTI = 900;
+    public static final int  POP_ZHUANTI = 901;
     public static final int  MINE_ZHUANTI= 100;
     public static final int NOW_NEWPRODUCT = 819;
     public static final String START_PAGE = "start_page";

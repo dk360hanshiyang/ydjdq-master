@@ -69,12 +69,14 @@ public class MoreProdctPresenter extends BasePresenterImpl<MoreProdctContract.Vi
         String position = "";
         int sortIndex = 0;
         int id = 0;
+        int positionId = 0;
 
         if (type == CusConstants.MOREPRODUCT) {
             productShowId = bean.getObject().get(position1).getId();
             position = bean.getObject().get(position1).getPosition().getKey();
             sortIndex = bean.getObject().get(position1).getSortIndex();
             id = bean.getObject().get(position1).getBorrowProduct().getId();
+            positionId = bean.getObject().get(position1).getPositionId();
         }
         OkHttpUtils
                 .post()
@@ -85,6 +87,7 @@ public class MoreProdctPresenter extends BasePresenterImpl<MoreProdctContract.Vi
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                 .addParams("productId", id+"")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId()+"")
                 .addParams("accessPort", "2")

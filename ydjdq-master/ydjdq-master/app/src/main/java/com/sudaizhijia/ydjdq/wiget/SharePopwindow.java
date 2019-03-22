@@ -317,6 +317,7 @@ public class SharePopwindow implements View.OnClickListener {
      * 微信好友
      */
     private void shareToWechat() {
+        Log.e("shareUrl",CusApplication.shareUrl);
         UMImage umImage = new UMImage(context, logoUrl);
         UMWeb web = new UMWeb(CusApplication.shareUrl);
         web.setTitle(shareTitle);

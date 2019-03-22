@@ -283,7 +283,16 @@ public class NewProductBean extends BaseBean implements Serializable{
                 private int productId;
                 @SerializedName("sortIndex")
                 private int sortIndex;
+                @SerializedName("positionId")
+                private int positionId;
 
+                public int getPositionId() {
+                    return positionId;
+                }
+
+                public void setPositionId(int positionId) {
+                    this.positionId = positionId;
+                }
                 @Override
                 public String toString() {
                     return "ProductShowListBeanX{" +
@@ -523,6 +532,16 @@ public class NewProductBean extends BaseBean implements Serializable{
                 private int productId;
                 @SerializedName("sortIndex")
                 private int sortIndex;
+                @SerializedName("positionId")
+                private int positionId;
+
+                public int getPositionId() {
+                    return positionId;
+                }
+
+                public void setPositionId(int positionId) {
+                    this.positionId = positionId;
+                }
 
                 public BorrowProductBeanXX getBorrowProduct() {
                     return borrowProduct;

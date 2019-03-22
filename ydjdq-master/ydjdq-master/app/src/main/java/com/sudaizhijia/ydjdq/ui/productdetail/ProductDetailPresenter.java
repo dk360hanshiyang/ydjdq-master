@@ -142,6 +142,30 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
             //正在下载中，不重新下载
             Toast.makeText(activity, productname + "正在下载中！", Toast.LENGTH_SHORT).show();
         } else {
+            mView.calcuteDownload();
+//            Toast.makeText(activity, productname + "已经开始下载！", Toast.LENGTH_SHORT).show();
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            // 获取屏幕高度
+            int height = display.getHeight();
+            Toast toast = Toast.makeText(activity, productname + "正在下载，下拉状态栏可查看下载进度", Toast.LENGTH_LONG);
+            // 这里给了一个1/4屏幕高度的y轴偏移量
+            toast.setGravity(Gravity.TOP, 0, height / 6);
+            toast.show();
+            //创建下载请求
+            DownloadManager.Request down = new DownloadManager.Request(Uri.parse(url));
+            //设置允许使用的网络类型，这里是移动网络和wifi都可以
+            down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+            //显示在下载界面，即下载后的文件在系统下载管理里显示
+            down.setVisibleInDownloadsUi(true);
+            //设置下载标题
+            down.setTitle(productname);
+            //显示Notification
+            down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+            //设置下载后文件存放的位置，在SDCard/Android/data/你的应用的包名/files/目录下面
+            down.setDestinationInExternalFilesDir(activity, null, DOWNLOAD_FILE_NAME);
+            //将下载请求放入队列,返回值为downloadId
+            downloadId = manager.enqueue(down);
+
             String cache = SharedPreUtils.getString(getContext(), CusConstants.HOMEDATA, "");
             if (!TextUtils.isEmpty(cache)) {
                 HomeBean homeBean2 = new Gson().fromJson(cache, HomeBean.class);
@@ -153,33 +177,9 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
                     }
                 }
             }
+        }
 
-        mView.calcuteDownload();
-//            Toast.makeText(activity, productname + "已经开始下载！", Toast.LENGTH_SHORT).show();
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        // 获取屏幕高度
-        int height = display.getHeight();
-        Toast toast = Toast.makeText(activity, productname + "正在下载，下拉状态栏可查看下载进度", Toast.LENGTH_LONG);
-        // 这里给了一个1/4屏幕高度的y轴偏移量
-        toast.setGravity(Gravity.TOP, 0, height / 6);
-        toast.show();
-        //创建下载请求
-        DownloadManager.Request down = new DownloadManager.Request(Uri.parse(url));
-        //设置允许使用的网络类型，这里是移动网络和wifi都可以
-        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        //显示在下载界面，即下载后的文件在系统下载管理里显示
-        down.setVisibleInDownloadsUi(true);
-        //设置下载标题
-        down.setTitle(productname);
-        //显示Notification
-        down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        //设置下载后文件存放的位置，在SDCard/Android/data/你的应用的包名/files/目录下面
-        down.setDestinationInExternalFilesDir(activity, null, DOWNLOAD_FILE_NAME);
-        //将下载请求放入队列,返回值为downloadId
-        downloadId = manager.enqueue(down);
     }
-
-}
 
     private void showRecommendDialog(Activity activity) {
 
@@ -244,6 +244,7 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
         CusApplication.random = AppInfoUtil.getNowTime();
         int productShowId = 0;
         String position = "";
+        int positionId = 0;
         int sortIndex = 0;
         int id = 0;
 
@@ -252,11 +253,13 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
             position = homeBean.getObject().getList().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getList().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getList().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getList().get(currentPosi).getPositionId();
         } else if (type == CusConstants.TOP) {
             productShowId = homeBean.getObject().getTop().get(currentPosi).getId();
             position = homeBean.getObject().getTop().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getTop().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getTop().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getTop().get(currentPosi).getPositionId();
         } else if (type == CusConstants.MIDDLE) {
             if (homeBean.getObject().getMiddle().size() < currentPosi) {
                 return;
@@ -265,21 +268,25 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
             productShowId = homeBean.getObject().getMiddle().get(currentPosi).getId();
             position = homeBean.getObject().getMiddle().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getMiddle().get(currentPosi).getSortIndex();
+            positionId = homeBean.getObject().getMiddle().get(currentPosi).getPositionId();
         } else if (type == CusConstants.BANNER) {
             productShowId = homeBean.getObject().getBanner().get(currentPosi).getId();
             position = homeBean.getObject().getBanner().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getBanner().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getBanner().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getBanner().get(currentPosi).getPositionId();
         } else if (type == CusConstants.REPORTMENT) {
             productShowId = homeBean.getObject().getPaymentReport().get(currentPosi).getId();
             position = homeBean.getObject().getPaymentReport().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getPaymentReport().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getPaymentReport().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getPaymentReport().get(currentPosi).getPositionId();
         } else if (type == CusConstants.DUWNLOAD) {
             productShowId = homeBean.getObject().getDownLoadPreview().get(currentPosi).getId();
             position = homeBean.getObject().getDownLoadPreview().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getDownLoadPreview().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getDownLoadPreview().get(currentPosi).getBorrowProductDown().getId();
+            positionId = homeBean.getObject().getDownLoadPreview().get(currentPosi).getPositionId();
         }
         OkHttpUtils
                 .post()
@@ -290,6 +297,7 @@ public class ProductDetailPresenter extends BasePresenterImpl<ProductDetailContr
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                 .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")

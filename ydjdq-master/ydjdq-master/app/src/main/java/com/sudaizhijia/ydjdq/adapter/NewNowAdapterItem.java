@@ -77,10 +77,12 @@ public class NewNowAdapterItem extends RecyclerView.Adapter<NewNowAdapterItem.Vi
             String mposition = "";
             int sortIndex = 0;
             int id = 0;
+            int positionId = 0;
             productShowId = bean1.getId();
             mposition = bean1.getPosition().getKey();
             sortIndex = bean1.getSortIndex();
             id = bean1.getBorrowProduct().getId();
+            bean1.getPositionId();
             OkHttpUtils
                     .post()
                     .url(API.UV)
@@ -89,6 +91,7 @@ public class NewNowAdapterItem extends RecyclerView.Adapter<NewNowAdapterItem.Vi
                     .addParams("sortIndex", sortIndex + "")
                     .addParams("iemi", AppInfoUtil.getIMEI(mContext))
                     .addParams("productId", id + "")
+                    .addParams("positionId", positionId + "")
                     .addParams("actionSerialNumber", CusApplication.random)
                     .addParams("userId", CusApplication.object.getUserId() + "")
                     .addParams("accessPort", "2")

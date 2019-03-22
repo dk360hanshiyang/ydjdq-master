@@ -88,6 +88,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
         int productShowId = 0;
         String position = "";
         int sortIndex = 0;
+        int positionId = 0;
         int id = 0;
         MineBean mineBean = (MineBean) bean;
         try {
@@ -98,6 +99,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
                 position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
                 sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
                 id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();
+                positionId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPositionId();
             } else if (type == CusConstants.MINE_BANNER) {
 //            productShowId = mineBean.getObject().getMyVo().getAppBannerList().getProductId();
 //            position = mineBean.getObject().getMyVo().getAppBannerList().get(position1).getPosition().getKey();
@@ -108,6 +110,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
                 position = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPosition().getKey();
                 sortIndex = mineBean.getObject().getMyVo().getMyShowList().get(position1).getSortIndex();
                 id = mineBean.getObject().getMyVo().getMyShowList().get(position1).getBorrowProduct().getId();
+                positionId = mineBean.getObject().getMyVo().getMyShowList().get(position1).getPositionId();
             }
         } catch (Exception e) {
 
@@ -121,6 +124,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                 .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")

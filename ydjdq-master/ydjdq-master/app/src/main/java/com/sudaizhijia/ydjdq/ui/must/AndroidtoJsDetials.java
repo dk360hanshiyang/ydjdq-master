@@ -92,6 +92,7 @@ public class AndroidtoJsDetials extends Object {
         int productShowId = 0;
         String position = "";
         int sortIndex = 0;
+        int positionId = 0;
         int id = 0;
 
         productShowId = homeBean.getId();
@@ -99,7 +100,7 @@ public class AndroidtoJsDetials extends Object {
         position = homeBean.getPosition();
         sortIndex = homeBean.getSortIndex();
         id = homeBean.getBorrowProduct().getId();
-
+        positionId = homeBean.getPositionId();
         OkHttpUtils
                 .post()
                 .url(API.UV)
@@ -108,6 +109,7 @@ public class AndroidtoJsDetials extends Object {
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(mContext))
                 .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")

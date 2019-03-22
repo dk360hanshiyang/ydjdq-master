@@ -366,7 +366,22 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
             logoUrl = borrowProduct.getLogoUrl();
             mHomeUrl = borrowProduct.getLinkedUrl();
 //            mHomeUrl = API.SERVER_URL + mHomeUrl;
-        } else if (type == CusConstants.BANNER) {
+        } else if (type == CusConstants.POP_ZHUANTI) {
+            iv_statu.setVisibility(View.GONE);
+            rlDetailRoot.setVisibility(View.GONE);
+            ll_select_bar.setVisibility(View.GONE);
+            homeBean = (HomeBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
+            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
+            HomeBean.ObjectBean.PopupBean.PupUpBorrowProductBean pupUpBorrowProductBean = homeBean.getObject().getPopUp().get(position).getPupUpBorrowProductBean();
+            productId = homeBean.getObject().getPopUp().get(position).getProductId();
+            description = homeBean.getObject().getPopUp().get(position).getPupUpBorrowProductBean().getDescription();
+            if (!TextUtils.isEmpty(pupUpBorrowProductBean.getLinkedUrlTwo())) {
+                linkedUrlTwo = pupUpBorrowProductBean.getLinkedUrlTwo();
+            }
+            logoUrl = pupUpBorrowProductBean.getLogoUrl();
+            mHomeUrl = pupUpBorrowProductBean.getLinkedUrl();
+//            mHomeUrl = API.SERVER_URL + mHomeUrl;
+        }else if (type == CusConstants.BANNER) {
             iv_statu.setVisibility(View.VISIBLE);
             homeBean = (HomeBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
             position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
@@ -432,9 +447,10 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         } else if (type == CusConstants.TOP) {
             iv_statu.setVisibility(View.VISIBLE);
             homeBean = (HomeBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
+            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
             productId = homeBean.getObject().getTop().get(position).getProductId();
 
-            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
+
             topBean = homeBean.getObject().getTop().get(position).getBorrowProduct();
             if (!TextUtils.isEmpty(topBean.getLinkedUrlTwo())) {
                 linkedUrlTwo = topBean.getLinkedUrlTwo();
@@ -447,9 +463,10 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
             tv_product_title.setText(topBean.getName());
         } else if (type == CusConstants.RECENTLY) {
             iv_statu.setVisibility(View.VISIBLE);
+            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
             recentlyBean = (NewProductBean.ObjectBean.PastDayListBean.ProductShowListBeanXX) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
             productId = recentlyBean.getProductId();
-            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
+
             borrowProduct = recentlyBean.getBorrowProduct();
             if (!TextUtils.isEmpty(borrowProduct.getLinkedUrlTwo())) {
                 linkedUrlTwo = borrowProduct.getLinkedUrlTwo();
@@ -462,9 +479,9 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
             tv_product_title.setText(borrowProduct.getName());
         } else if (type == CusConstants.NOW_NEWPRODUCT) {
             iv_statu.setVisibility(View.VISIBLE);
+            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
             nowNewBean = (NewProductBean.ObjectBean.TodayNewListBean.ProductShowListBeanX) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
             productId = nowNewBean.getProductId();
-            position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
             borrowProduct1 = nowNewBean.getBorrowProduct();
             if (!TextUtils.isEmpty(borrowProduct1.getLinkedUrlTwo())) {
                 linkedUrlTwo = borrowProduct1.getLinkedUrlTwo();
@@ -478,8 +495,9 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         } else if (type == CusConstants.MARKET_DATA) {
             iv_statu.setVisibility(View.VISIBLE);
             marketBean = (MarketBean.ObjectBean.DaQuanShowListBean) getIntent().getSerializableExtra(CusConstants.PRODUCT_INFO);
-            productId = marketBean.getProductId();
             position = (Integer) getIntent().getIntExtra(CusConstants.PRODUCT_POSITION, 0);
+            productId = marketBean.getProductId();
+
             borrowProduct2 = marketBean.getBorrowProduct();
             if (!TextUtils.isEmpty(borrowProduct2.getLinkedUrlTwo())) {
                 linkedUrlTwo = borrowProduct2.getLinkedUrlTwo();
@@ -695,9 +713,10 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
             String shareUrl = SharedPreUtils.getString(getContext(), "shareUrl", "");
             //微信分享
             CusApplication.shareUrl = shareUrl + "?productId=" + productId;
+
         }
         Log.e("url", "mHomeUrl-> " + mHomeUrl + "     linkedUrlTwo->" + linkedUrlTwo);
-
+        Log.e("productId",productId + " ");
         initOther();
         initWebView();
     }
@@ -1391,6 +1410,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         int productShowId = 0;
         String position = "";
         int sortIndex = 0;
+        int positionId = 0;
         int id = 0;
 
         productShowId = homeBean.getId();
@@ -1398,7 +1418,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
         position = homeBean.getPosition();
         sortIndex = homeBean.getSortIndex();
         id = homeBean.getBorrowProduct().getId();
-
+        positionId = homeBean.getPositionId();
         OkHttpUtils
                 .post()
                 .url(API.UV)
@@ -1407,6 +1427,7 @@ public class ProductDetailActivity extends MVPBaseActivity<ProductDetailContract
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                 .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
                 .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")

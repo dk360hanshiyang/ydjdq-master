@@ -17,7 +17,7 @@ import okhttp3.Call;
  * Created by WilliamWang on 2018/12/5
  */
 
-public class RecentlyPresenter extends BasePresenterImpl<RecentlyContract.View> implements RecentlyContract.Presenter{
+public class RecentlyPresenter extends BasePresenterImpl<RecentlyContract.View> implements RecentlyContract.Presenter {
 
     @Override
     public void postUvData(NewProductBean.ObjectBean.PastDayListBean.ProductShowListBeanXX bean1, int position, int type) {
@@ -27,10 +27,12 @@ public class RecentlyPresenter extends BasePresenterImpl<RecentlyContract.View> 
         String mposition = "";
         int sortIndex = 0;
         int id = 0;
+        int positionId = 0;
         productShowId = bean1.getId();
         mposition = bean1.getPosition().getKey();
         sortIndex = bean1.getSortIndex();
         id = bean1.getBorrowProduct().getId();
+        positionId = bean1.getPositionId();
         OkHttpUtils
                 .post()
                 .tag(getTag())
@@ -39,9 +41,10 @@ public class RecentlyPresenter extends BasePresenterImpl<RecentlyContract.View> 
                 .addParams("position", mposition)
                 .addParams("sortIndex", sortIndex + "")
                 .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
-                .addParams("productId", id+"")
+                .addParams("productId", id + "")
+                .addParams("positionId", positionId + "")
                 .addParams("actionSerialNumber", CusApplication.random)
-                .addParams("userId", CusApplication.object.getUserId()+"")
+                .addParams("userId", CusApplication.object.getUserId() + "")
                 .addParams("accessPort", "2")
                 .build()
                 .execute(new HttpCallback() {

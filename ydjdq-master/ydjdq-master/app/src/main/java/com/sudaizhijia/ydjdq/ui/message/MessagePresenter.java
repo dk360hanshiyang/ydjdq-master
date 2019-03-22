@@ -47,8 +47,8 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View> im
 
                             @Override
                             public void onResponse(MessageBean response, int id) {
-                                Log.e("text101", "onResponse: "+response.getObject().getMessageList().size() );
-                                SharedPreUtils.putString(mView.getContext(),CusConstants.MSG_TIME,response.getObject().getLastOpenTime()+"");
+                                Log.e("text101", "onResponse: " + response.getObject().getMessageList().size());
+                                SharedPreUtils.putString(mView.getContext(), CusConstants.MSG_TIME, response.getObject().getLastOpenTime() + "");
                                 mView.setContentView();
                                 if (isFresh) {
                                     mView.setfreshEnding(response);
@@ -88,6 +88,7 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View> im
         String position = "";
         int sortIndex = 0;
         int id = 0;
+        int positionId = 0;
 
 
         if (type == CusConstants.MESSAGE_MSG) {
@@ -95,6 +96,7 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View> im
             position = homeBean.getObject().getMessageList().get(currentPosi).getPosition().getKey();
             sortIndex = homeBean.getObject().getMessageList().get(currentPosi).getSortIndex();
             id = homeBean.getObject().getMessageList().get(currentPosi).getBorrowProduct().getId();
+            positionId = homeBean.getObject().getMessageList().get(currentPosi).getPositionId();
             OkHttpUtils
                     .post()
                     .tag(getTag())
@@ -104,6 +106,7 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View> im
                     .addParams("sortIndex", sortIndex + "")
                     .addParams("iemi", AppInfoUtil.getIMEI(getContext()))
                     .addParams("productId", id + "")
+                    .addParams("positionId", positionId + "")
                     .addParams("actionSerialNumber", CusApplication.random)
                     .addParams("userId", CusApplication.object.getUserId() + "")
                     .addParams("accessPort", "2")
