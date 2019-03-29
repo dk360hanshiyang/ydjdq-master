@@ -122,7 +122,7 @@ public class CusApplication extends Application {
         //建议添加tag标签，发送消息的之后就可以指定tag标签来发送了
         Set<String> set = new HashSet<>();
         set.add("100");//名字任意，可多添加几个
-            JPushInterface.setTags(mContext, set, null);//设置标签
+        JPushInterface.setTags(mContext, set, null);//设置标签
 
 
         //设置标签和别名
@@ -296,6 +296,11 @@ public class CusApplication extends Application {
             object.setToken(token);
         }
 
+
+    }
+
+    private void LoginOut() {
+        SharedPreUtils.clearAll(mContext);
     }
 
 

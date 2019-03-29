@@ -136,8 +136,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
     }
 
-    //创建碎片管理器
-    private FragmentManager manager;//碎片管理器
+    private FragmentManager manager;
 
     /**
      * 初始化Fragment

@@ -39,4 +39,9 @@ public class SharedPreUtils {
         getInstance(context).edit().putBoolean(key, value).commit();
     }
 
+    public static void clearAll(Context context) {
+        getInstance(context).edit().clear().commit();
+
+    }
+
 }

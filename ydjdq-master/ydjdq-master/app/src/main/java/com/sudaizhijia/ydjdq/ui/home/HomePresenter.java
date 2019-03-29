@@ -158,7 +158,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
                     public void onFail(Call call, Exception e, int id) {
                         Toast.makeText(mView.getContext(), "网络出小差了，重试一下吧", Toast.LENGTH_SHORT).show();
 //                        mView.startLoading(false);
-                        Log.e("Exception", e.getMessage() + " ");
+//                        Log.e("Exception", e.getMessage() + " ");
                         if (isRefresh) {
                             //TODO 刷新时网络错误
                             mView.stopRefresh();
@@ -364,7 +364,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
 
                     }
                 });
-        Log.e("show", productShowId + " id" + id);
+//        Log.e("show", productShowId + " id" + id);
     }
 
 

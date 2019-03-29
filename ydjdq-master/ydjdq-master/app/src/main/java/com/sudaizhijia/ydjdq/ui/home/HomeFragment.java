@@ -156,7 +156,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     private LinearLayout linearLayoutIndicator;
     private View view1;
     private HomeBean.ObjectBean object;
-    private boolean signs = true;
 
 
     @Override
@@ -363,7 +362,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         if (overlays.size() > 1) {
             bottomLineLayout.initViews(overlays.size(), 15, 13);
         }
-        Log.e("overLay", overlays.size() + "");
+//        Log.e("overLay", overlays.size() + "");
         ViewPager vp_dialog = view.findViewById(R.id.vp_dialog);
         ImageView close = view.findViewById(R.id.iv_close);
 //        CodeDialogView adDialog = new CodeDialogView(getActivity(), 0, 0, view, R.style.DialogTheme);
@@ -656,9 +655,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 Glide.with(getContext()).load(popUp.get(index).getImgUrl()).into(imgFloating);
             }
         } else {
-            llFloatingWindow.setVisibility(View.GONE);
-            imgCloseFloating.setVisibility(View.GONE);
-            imgFloating.setVisibility(View.GONE);
+            hidePopup();
         }
     }
 
@@ -760,9 +757,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         }
         try {
             tv_operation_one.setText(top.get(0).getTitle());
-
-            tv_operation_three.setText(top.get(2).getTitle());
-            tv_operation_four.setText(top.get(3).getTitle());
             if (TextUtils.isEmpty(top.get(0).getImgUrl())) {
                 Glide.with(getContext()).load(top.get(0).getBorrowProduct().getLogoUrl()).into(iv_operation_one);
             } else {
@@ -774,11 +768,13 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             } else {
                 Glide.with(getContext()).load(top.get(1).getImgUrl()).into(iv_operation_two);
             }
+            tv_operation_three.setText(top.get(2).getTitle());
             if (TextUtils.isEmpty(top.get(2).getImgUrl())) {
                 Glide.with(getContext()).load(top.get(2).getBorrowProduct().getLogoUrl()).into(iv_operation_three);
             } else {
                 Glide.with(getContext()).load(top.get(2).getImgUrl()).into(iv_operation_three);
             }
+            tv_operation_four.setText(top.get(3).getTitle());
             if (TextUtils.isEmpty(top.get(3).getImgUrl())) {
                 Glide.with(getContext()).load(top.get(3).getBorrowProduct().getLogoUrl()).into(iv_operation_four);
             } else {
@@ -957,17 +953,14 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             case R.id.title_bar:
                 if (isLogin()) {
                     MobclickAgent.onEvent(getContext(), "titlebar");
-
                     startActivity(new Intent(getActivity(), NewProductActivity.class));
                 }
                 break;
             case R.id.ll_operation_one:
                 if (isLogin()) {
                     try {
-
-
                         if (!TextUtils.isEmpty(mHomeBean.getObject().getTop().get(0).getShowType())) {
-                            Log.e("zhuanti", mHomeBean.getObject().getTop().get(0).getShowType());
+//                            Log.e("zhuanti", mHomeBean.getObject().getTop().get(0).getShowType());
                             if (mHomeBean.getObject().getTop().get(0).getShowType().equals(CusConstants.HUODONG_TYPE) || mHomeBean.getObject().getTop().get(0).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
                                 calculate(0, CusConstants.ZHUANTI);
                                 openDetail(CusConstants.ZHUANTI, mHomeBean, 0);
@@ -995,8 +988,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             case R.id.ll_operation_two:
                 if (isLogin()) {
                     try {
-
-
                         if (!TextUtils.isEmpty(mHomeBean.getObject().getTop().get(1).getShowType())) {
                             if (mHomeBean.getObject().getTop().get(1).getShowType().equals(CusConstants.HUODONG_TYPE) || mHomeBean.getObject().getTop().get(1).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
                                 calculate(1, CusConstants.ZHUANTI);
@@ -1025,8 +1016,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             case R.id.ll_operation_three:
                 if (isLogin()) {
                     try {
-
-
                         if (!TextUtils.isEmpty(mHomeBean.getObject().getTop().get(2).getShowType())) {
                             if (mHomeBean.getObject().getTop().get(2).getShowType().equals(CusConstants.HUODONG_TYPE) || mHomeBean.getObject().getTop().get(2).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
                                 calculate(2, CusConstants.ZHUANTI);
@@ -1053,11 +1042,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 }
                 break;
             case R.id.ll_operation_four:
-
                 if (isLogin()) {
                     try {
-
-
                         if (!TextUtils.isEmpty(mHomeBean.getObject().getTop().get(3).getShowType())) {
                             if (mHomeBean.getObject().getTop().get(3).getShowType().equals(CusConstants.HUODONG_TYPE) || mHomeBean.getObject().getTop().get(3).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
                                 calculate(3, CusConstants.ZHUANTI);
@@ -1094,7 +1080,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                     } else {
                         Toast.makeText(getContext(), "暂无该口子信息！", Toast.LENGTH_SHORT).show();
                     }
-
                 }
                 break;
             case R.id.ll_change_app_two:
@@ -1109,7 +1094,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 break;
             case R.id.ll_change_app_three:
                 if (isLogin()) {
-
                     if (mHomeBean.getObject() != null && mHomeBean.getObject().getMiddle().size() > 2) {
                         calculate(2, CusConstants.MIDDLE);
                         openDetail(CusConstants.MIDDLE, mHomeBean, 2);
@@ -1143,7 +1127,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             //浮窗
             case R.id.ll_floating_window:
                 if (isLogin()) {
-                    signs = false;
                     try {
                         if (!TextUtils.isEmpty(mHomeBean.getObject().getPopUp().get(index).getShowType())) {
                             if (mHomeBean.getObject().getPopUp().get(index).getShowType().equals(CusConstants.HUODONG_TYPE) || mHomeBean.getObject().getTop().get(index).getShowType().equals(CusConstants.ZHAUNTI_TYPE)) {
@@ -1156,7 +1139,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                                 } else {
                                     Toast.makeText(getContext(), "暂无该口子信息！", Toast.LENGTH_SHORT).show();
                                 }
-
                             }
                         } else {
                             //产品
@@ -1168,7 +1150,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
                         }
                     } catch (Exception e) {
-
                     }
                     if (index == mHomeBean.getObject().getPopUp().size() - 1) {
                         index = 0;
@@ -1179,12 +1160,16 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 }
                 break;
             case R.id.iv_close_floating_window:
-                imgCloseFloating.setVisibility(View.GONE);
-                llFloatingWindow.setVisibility(View.GONE);
-                imgFloating.setVisibility(View.GONE);
+                hidePopup();
                 sign = false;
                 break;
         }
+    }
+
+    private void hidePopup() {
+        imgCloseFloating.setVisibility(View.GONE);
+        llFloatingWindow.setVisibility(View.GONE);
+        imgFloating.setVisibility(View.GONE);
     }
 
     private void intentProduct() {
@@ -1211,8 +1196,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 mPresenter.postUvData(mHomeBean, position, CusConstants.HOMEINFO);
                 openDetail(CusConstants.HOMEINFO, mHomeBean, position);
             }
-
-
         }
 
 
@@ -1232,7 +1215,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 keyMap.put("product", mHomeBean.getObject().getPaymentReport().get(position).getBorrowProduct().getName());
                 keyMap.put("positionValue", mHomeBean.getObject().getPaymentReport().get(position).getPosition().getValue());
                 MobclickAgent.onEvent(getContext(), "payment", keyMap);
-
                 calculate(position, CusConstants.REPORTMENT);
                 openDetail(CusConstants.REPORTMENT, mHomeBean, position);
             }
@@ -1290,7 +1272,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                         calculate(0, CusConstants.HOME_DIALOG);
                         openDetail(CusConstants.HOME_DIALOG, mHomeBean, position);
                     }
-
                 }
             });
             if (overlays.size() > 0) {
